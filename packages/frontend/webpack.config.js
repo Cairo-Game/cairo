@@ -10,21 +10,20 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
         },
       },
       {
-        test: /\.tsx?$/,
-        loader: "babel-loader",
-      },
-      {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
     ],
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
   },
   plugins: [
     new HtmlWebpackPlugin({
