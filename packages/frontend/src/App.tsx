@@ -4,6 +4,7 @@ import { colorBlack } from "./styles/modules/colors";
 import Cat from "./assets/svg/cat.svg";
 import "./App.css";
 import "./styles/common/normalize.css";
+import { Home } from "./pages/Home/home";
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
         <h1>Cairo Game</h1>
         <Cat width={200} />
         <Separator color={colorBlack} />
+        <Home />
       </div>
     );
   }
