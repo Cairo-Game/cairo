@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -23,16 +24,25 @@ module.exports = {
       {
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
-        use: ['@svgr/webpack'],
+        use: ["@svgr/webpack"],
       },
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
+    extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./www/index.html",
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "**/*",
+          context: path.resolve(__dirname, "src/assets"),
+          to: "./assets",
+        },
+      ],
     }),
   ],
 };
