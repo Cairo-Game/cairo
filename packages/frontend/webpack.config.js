@@ -1,46 +1,46 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: path.resolve(__dirname, 'src', 'index.tsx'),
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[chunkhash].bundle.js',
+    clean: true,
+    assetModuleFilename: '[name][ext]',
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx|tsx|ts)$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+        use: ['babel-loader', 'ts-loader'],
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
-        use: ["@svgr/webpack"],
+        use: ['@svgr/webpack'],
       },
     ],
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
+    extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./www/index.html",
+      template: path.resolve(__dirname, 'www', 'index.html'),
     }),
     new CopyPlugin({
       patterns: [
         {
-          from: "**/*",
-          context: path.resolve(__dirname, "src/assets"),
-          to: "./assets",
+          from: '**/*',
+          context: path.resolve(__dirname, 'src/assets'),
+          to: './assets',
         },
       ],
     }),
