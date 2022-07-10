@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const DotenvWebpackPlugin = require('dotenv-webpack');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -30,6 +31,18 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
+    alias: {
+      api: path.resolve(__dirname, 'src/assets'),
+      components: path.resolve(__dirname, 'src/components'),
+      hooks: path.resolve(__dirname, 'src/hooks'),
+      models: path.resolve(__dirname, 'src/models'),
+      services: path.resolve(__dirname, 'src/services'),
+      store: path.resolve(__dirname, 'src/store'),
+      styles: path.resolve(__dirname, 'src/styles'),
+      pages: path.resolve(__dirname, 'src/pages'),
+      typings: path.resolve(__dirname, 'src/typings'),
+      utils: path.resolve(__dirname, 'src/utils'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -44,5 +57,6 @@ module.exports = {
         },
       ],
     }),
+    new DotenvWebpackPlugin()
   ],
 };
