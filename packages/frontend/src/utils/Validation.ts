@@ -26,7 +26,7 @@ function checkEmail(value: string) {
 
 export const Validation = (key: string, value: string) => {
     if (!value) {
-        return 'Обязательное поле'
+        return 'Обязательное поле';
     }
     else if (key == 'second_name' || key == 'first_name') {
         return checkNames(value);

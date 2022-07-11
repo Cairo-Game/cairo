@@ -69,7 +69,7 @@ export const Login = () => {
                     </Row>
                     <Row>
                         <Col offset={12}>
-                            <Button type="link" onClick={handleClickSignUpButton} formNoValidate={true}>
+                            <Button type="link" onClick={handleClickSignUpButton}>
                                 Нет аккаунта?
                             </Button>
                         </Col>

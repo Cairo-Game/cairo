@@ -10,6 +10,14 @@ import {useNavigate} from "react-router-dom";
 import {ProjectRoutes} from "constants/Routs";
 const {Title} = Typography;
 
+const initialValues: ISignUpData = {
+    first_name: '',
+    second_name: '',
+    login: '',
+    email: '',
+    password: '',
+    phone: ''
+}
 export const SignUp = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -41,10 +49,9 @@ export const SignUp = () => {
                 errors[key] =result;
             }
         })
+        console.log('errors', errors)
         return errors;
     }
-
-    const initialValues = {} as ISignUpData;
 
     const handleClickSignInButton = () => {
         navigate(ProjectRoutes.login)
@@ -57,7 +64,7 @@ export const SignUp = () => {
                 </Col>
             </Row>
             <Formik initialValues={initialValues} onSubmit={onSubmit} validateOnBlur={true}
-                    validateOnChange={false} validate={validateFormValues} autoComplete={true}>
+                     validate={validateFormValues} autoComplete={true}>
                 <Form name="basic"
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 8 }}
