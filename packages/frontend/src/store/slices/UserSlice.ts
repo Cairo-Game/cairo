@@ -1,5 +1,6 @@
 import {IUser} from "models/Entity/User";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {dropRequestUserDataState} from "store/actions/UserActions";
 
 interface UserState {
     userInfo: Partial<IUser>,
@@ -16,7 +17,9 @@ const initialState: UserState = {
         login: "",
         email: "",
         password: "",
-        phone: ""
+        phone: "",
+        id: null,
+        displayName: ""
     },
     requestData: {
         isLoading: null,
@@ -37,11 +40,19 @@ export const userSlice = createSlice(
                 state.requestData.isLoading=true
             },
             fetchError(state, action){
-              state.requestData.errorMessage=action.payload.response?.data?.reason||action.payload.message
+                console.log('action:',action)
+              state.requestData.errorMessage=action.payload
               state.requestData.isLoading=false
             },
             fetchUserData(state, action){
-              // state.userInfo
+                state.userInfo=action.payload;
+            },
+            dropRequestUserDataState(state){
+                state.requestData.isLoading=false
+                state.requestData.errorMessage=""
+            },
+            dropState(state){
+                state = {...initialState}
             },
         }
     }

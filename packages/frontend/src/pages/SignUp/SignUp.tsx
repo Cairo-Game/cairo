@@ -3,7 +3,7 @@ import { Form, Input, SubmitButton, ResetButton} from 'formik-antd'
 import { message, Typography, Button, Row, Col} from 'antd';
 import {useAppDispatch, useAppSelector} from "hooks/Redux";
 import {Formik} from 'formik'
-import {fetchUserSignUp} from "store/actions/UserActions";
+import {dropRequestUserDataState, fetchUserSignUp} from "store/actions/UserActions";
 import {ISignUpData} from "models/Api/User.api";
 import {Validation} from "utils/Validation";
 import {useNavigate} from "react-router-dom";
@@ -39,6 +39,9 @@ export const SignUp = () => {
         } else if (isLoading===true){
             navigate(ProjectRoutes.login)
         }
+        return () => {
+            dispatch(dropRequestUserDataState())
+        }
     }, [isLoading])
 
     const validateFormValues = (values: ISignUpData) => {
@@ -69,7 +72,8 @@ export const SignUp = () => {
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 8 }}
                     initialValues={{ remember: true }}
-                    onFinishFailed={onFinishFailed}>
+                    onFinishFailed={onFinishFailed}
+                    style={{marginTop: 20}}>
                     <Form.Item name='first_name' label="Имя" >
                         <Input name='first_name' showCount={false}/>
                     </Form.Item>

@@ -12,14 +12,19 @@ import "antd/dist/antd.css";
 import {Login} from "pages/Login/Login";
 import {AuthLayout} from "components/Layouts/AuthLayout/AuthLayout";
 import {SignUp} from "pages/SignUp/SignUp";
+import {ProfileDescription} from "pages/ProfileDescription/ProfileDescription";
+import {ProjectRoutes} from "constants/Routs";
+import {ProfileSettings} from "pages/ProfileSettings/ProfileSettings";
 
 class App extends Component {
   render() {
     return (
         <Routes>
-                    <Route path="/" element={<AuthLayout><Login/></AuthLayout>}/>
-                    <Route path="/sign-up" element={<AuthLayout><SignUp/></AuthLayout>}/>
-            </Routes>
+            <Route path={ProjectRoutes.login} element={<AuthLayout><Login/></AuthLayout>}/>
+            <Route path={ProjectRoutes.signUp} element={<AuthLayout><SignUp/></AuthLayout>}/>
+            <Route path={ProjectRoutes.profileDescription} element={<AuthLayout><ProfileDescription/></AuthLayout>}/>
+            <Route path={ProjectRoutes.profileSettings} element={<AuthLayout><ProfileSettings/></AuthLayout>}/>
+        </Routes>
     );
   }
 }

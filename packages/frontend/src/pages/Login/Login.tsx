@@ -3,7 +3,7 @@ import {Form, Input, ResetButton, SubmitButton} from 'formik-antd'
 import {Button, Col, message, Row} from 'antd';
 import {useAppDispatch, useAppSelector} from "hooks/Redux";
 import {Formik} from 'formik'
-import {fetchUserSignIn} from "store/actions/UserActions";
+import {dropRequestUserDataState, fetchUserData, fetchUserSignIn} from "store/actions/UserActions";
 import {ILoginData, ISignUpData} from "models/Api/User.api";
 import {Validation} from "utils/Validation";
 import {useNavigate} from "react-router-dom";
@@ -18,9 +18,11 @@ export const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const {errorMessage} = useAppSelector(state => state.user.requestData)
-    const onSubmit = (values: ILoginData) => {
-        dispatch(fetchUserSignIn(values))
+    const {userInfo, requestData} = useAppSelector(state => state.user)
+    const onSubmit = (values: ILoginData, actions) => {
+        dispatch(fetchUserSignIn(values)).then(() => {
+            actions.setSubmitting(false);
+        });
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -28,8 +30,29 @@ export const Login = () => {
     };
 
     useEffect( () => {
-       errorMessage && message.error(errorMessage, 2);
-    }, [errorMessage])
+            if (requestData.isLoading===false){
+                requestData.errorMessage && message.error(requestData.errorMessage, 2);
+            } else if (requestData.isLoading===true){
+                navigate(ProjectRoutes.profileDescription)
+            }
+            return () => {
+                dispatch(dropRequestUserDataState())
+            }
+        }, [requestData.isLoading])
+
+    useEffect( () => {
+        dispatch(fetchUserData())
+        return () => {
+            dispatch(dropRequestUserDataState())
+        }
+    }, [])
+
+    useEffect( () => {
+        console.log(userInfo.id)
+        if (userInfo.id!==null){
+            navigate(ProjectRoutes.profileDescription)
+        }
+    }, [userInfo.id])
 
     const validateFormValues = (values: ILoginData) => {
         const errors = {} as ISignUpData;
