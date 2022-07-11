@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import {Form, Input, ResetButton, SubmitButton} from 'formik-antd'
-import {Button, Col, message, Row, Typography} from 'antd';
+import {Button, Col, message, Row} from 'antd';
 import {useAppDispatch, useAppSelector} from "hooks/Redux";
 import {Formik} from 'formik'
 import {fetchUserSignIn} from "store/actions/UserActions";
 import {ILoginData, ISignUpData} from "models/Api/User.api";
 import {Validation} from "utils/Validation";
-import {history} from "utils/History";
+import {useNavigate} from "react-router-dom";
+import {ProjectRoutes} from "constants/Routs";
 
 const initialValues: ILoginData = {
     password: "",
@@ -15,6 +16,7 @@ const initialValues: ILoginData = {
 
 export const Login = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const {errorMessage} = useAppSelector(state => state.user.requestData)
     const onSubmit = (values: ILoginData) => {
@@ -41,7 +43,7 @@ export const Login = () => {
     }
 
     const handleClickSignUpButton = () => {
-        history.replace('/sign-up')
+        navigate(ProjectRoutes.signUp)
     }
 
     return (
@@ -67,7 +69,7 @@ export const Login = () => {
                     </Row>
                     <Row>
                         <Col offset={12}>
-                            <Button type="link" onClick={handleClickSignUpButton}>
+                            <Button type="link" onClick={handleClickSignUpButton} formNoValidate={true}>
                                 Нет аккаунта?
                             </Button>
                         </Col>

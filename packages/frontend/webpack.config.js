@@ -42,6 +42,7 @@ module.exports = {
       pages: path.resolve(__dirname, 'src/pages'),
       typings: path.resolve(__dirname, 'src/typings'),
       utils: path.resolve(__dirname, 'src/utils'),
+      constants: path.resolve(__dirname, 'src/constants'),
     },
   },
   plugins: [

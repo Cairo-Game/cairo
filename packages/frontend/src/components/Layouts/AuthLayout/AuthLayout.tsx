@@ -8,7 +8,7 @@ interface IAuthLayout{
 }
 export const AuthLayout = (props: IAuthLayout) => {
     return (
-        <Layout className="auth--layout">
+        <Layout className="auth__layout">
             <Content>
                 {props.children}
             </Content>

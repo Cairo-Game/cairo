@@ -3,16 +3,18 @@ import { Form, Input, SubmitButton, ResetButton} from 'formik-antd'
 import { message, Typography, Button, Row, Col} from 'antd';
 import {useAppDispatch, useAppSelector} from "hooks/Redux";
 import {Formik} from 'formik'
-import {fetchUserSignIn, fetchUserSignUp} from "store/actions/UserActions";
+import {fetchUserSignUp} from "store/actions/UserActions";
 import {ISignUpData} from "models/Api/User.api";
 import {Validation} from "utils/Validation";
-import {history} from "utils/History";
+import {useNavigate} from "react-router-dom";
+import {ProjectRoutes} from "constants/Routs";
 const {Title} = Typography;
 
 export const SignUp = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
-    const {errorMessage} = useAppSelector(state => state.user.requestData);
+    const {isLoading, errorMessage} = useAppSelector(state => state.user.requestData);
 
     const onSubmit = (values: ISignUpData, actions) => {
             dispatch(fetchUserSignUp(values)).then(() => {
@@ -24,8 +26,12 @@ export const SignUp = () => {
     };
 
     useEffect( () => {
-        errorMessage && message.error(errorMessage, 2);
-    }, [errorMessage])
+        if (isLoading===false){
+            errorMessage && message.error(errorMessage, 2);
+        } else if (isLoading===true){
+            navigate(ProjectRoutes.login)
+        }
+    }, [isLoading])
 
     const validateFormValues = (values: ISignUpData) => {
         const errors = {} as ISignUpData;
@@ -35,14 +41,13 @@ export const SignUp = () => {
                 errors[key] =result;
             }
         })
-        console.log('validateFormValues', errors)
         return errors;
     }
 
     const initialValues = {} as ISignUpData;
 
     const handleClickSignInButton = () => {
-        history.replace('/')
+        navigate(ProjectRoutes.login)
     }
     return (
         <>
@@ -79,12 +84,12 @@ export const SignUp = () => {
                     <SubmitButton />
                     <ResetButton />
                     <Row>
-                        <Col offset={12}>
+                        <Col offset={8}>
                             <SubmitButton>Зарегистрироваться</SubmitButton>
                         </Col>
                     </Row>
                     <Row>
-                        <Col offset={12}>
+                        <Col offset={8}>
                             <Button type="link" onClick={handleClickSignInButton}>
                                 Войти
                             </Button>
