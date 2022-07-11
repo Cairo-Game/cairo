@@ -56,9 +56,6 @@ export const SignUp = () => {
         return errors;
     }
 
-    const handleClickSignInButton = () => {
-        navigate(ProjectRoutes.login)
-    }
     return (
         <>
             <Row>
@@ -94,14 +91,12 @@ export const SignUp = () => {
                     </Form.Item>
                     <SubmitButton />
                     <ResetButton />
-                    <Row>
-                        <Col offset={8}>
-                            <SubmitButton>Зарегистрироваться</SubmitButton>
+                    <Row className="button__group">
+                        <Col>
+                            <SubmitButton block shape="round">Зарегистрироваться</SubmitButton>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col offset={8}>
-                            <Button type="link" onClick={handleClickSignInButton}>
+                        <Col>
+                            <Button type="link" href={ProjectRoutes.login} block>
                                 Войти
                             </Button>
                         </Col>

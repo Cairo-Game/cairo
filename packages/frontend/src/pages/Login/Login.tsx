@@ -48,7 +48,6 @@ export const Login = () => {
     }, [])
 
     useEffect( () => {
-        console.log(userInfo.id)
         if (userInfo.id!==null){
             navigate(ProjectRoutes.profileDescription)
         }
@@ -63,10 +62,6 @@ export const Login = () => {
             }
         })
         return errors;
-    }
-
-    const handleClickSignUpButton = () => {
-        navigate(ProjectRoutes.signUp)
     }
 
     return (
@@ -85,14 +80,12 @@ export const Login = () => {
                     </Form.Item>
                     <SubmitButton />
                     <ResetButton />
-                    <Row>
-                        <Col offset={12}>
-                            <SubmitButton>Войти</SubmitButton>
+                    <Row className="button__group">
+                        <Col>
+                            <SubmitButton  shape="round">Войти</SubmitButton>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col offset={12}>
-                            <Button type="link" onClick={handleClickSignUpButton}>
+                        <Col>
+                            <Button type="link" href={ProjectRoutes.signUp}>
                                 Нет аккаунта?
                             </Button>
                         </Col>

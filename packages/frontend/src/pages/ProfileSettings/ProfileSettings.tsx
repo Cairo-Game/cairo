@@ -20,11 +20,11 @@ const {Title} = Typography;
 
 export const ProfileSettings = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     const {requestData, userInfo} = useAppSelector(state => state.user);
     const [isLoaded, setIsLoaded] = useState<boolean>(!userInfo.id);
 
+    //TODO Поменять значения на те что в стейте когда заработает апишка
     const initialValues: IUserProfileUpdateData = {
         first_name: 'Арчибальд',
         second_name: 'Котиков',
@@ -67,9 +67,6 @@ export const ProfileSettings = () => {
         return errors;
     }
 
-    const handleClickGoBackButton = () => {
-        navigate(ProjectRoutes.profileDescription)
-    }
     return (
         <Skeleton loading={isLoaded}>
             <Row>
@@ -92,14 +89,12 @@ export const ProfileSettings = () => {
                             </Form.Item>
                         )
                     )}
-                    <Row>
-                        <Col offset={8}>
-                            <SubmitButton>Сохранить</SubmitButton>
+                    <Row className="button__group">
+                        <Col>
+                            <SubmitButton shape="round">Сохранить</SubmitButton>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col offset={8}>
-                            <Button type="link" onClick={handleClickGoBackButton}>
+                        <Col>
+                            <Button type="link" href={ProjectRoutes.profileDescription} shape="round">
                                 Назад
                             </Button>
                         </Col>
