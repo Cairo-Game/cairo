@@ -1,15 +1,15 @@
-import React, {useEffect} from 'react';
-import { Form, Input, SubmitButton, ResetButton} from 'formik-antd'
-import { message, Typography, Button, Row, Col} from 'antd';
-import {useAppDispatch, useAppSelector} from "hooks/Redux";
-import {Formik} from 'formik'
-import {dropRequestUserDataState, fetchUserSignUp} from "store/actions/UserActions";
-import {ISignUpData} from "models/Api/User.api";
-import {Validation} from "utils/Validation";
-import {useNavigate} from "react-router-dom";
-import {ProjectRoutes} from "constants/Routs";
-import {EStatusLoading} from "models/Api/common";
-const {Title} = Typography;
+import React, { useEffect } from 'react';
+import { Form, Input, SubmitButton, ResetButton } from 'formik-antd';
+import { message, Typography, Button, Row, Col } from 'antd';
+import { useAppDispatch, useAppSelector } from 'hooks/Redux';
+import { Formik } from 'formik';
+import { dropRequestUserDataState, fetchUserSignUp } from 'store/actions/UserActions';
+import { ISignUpData } from 'models/Api/User.api';
+import { Validation } from 'utils/Validation';
+import { useNavigate } from 'react-router-dom';
+import { ProjectRoutes } from 'constants/Routs';
+import { EStatusLoading } from 'models/Api/common';
+const { Title } = Typography;
 
 const initialValues: ISignUpData = {
     first_name: '',
@@ -17,45 +17,44 @@ const initialValues: ISignUpData = {
     login: '',
     email: '',
     password: '',
-    phone: ''
-}
+    phone: '',
+};
 export const SignUp = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const signUpData = useAppSelector(state => state.user.requestData.signUpData)
+    const signUpData = useAppSelector((state) => state.user.requestData.signUpData);
 
     const onSubmit = (values: ISignUpData, actions) => {
-            dispatch(fetchUserSignUp(values)).then(() => {
-                actions.setSubmitting(false);
-            });
-        }
+        dispatch(fetchUserSignUp(values)).then(() => {
+            actions.setSubmitting(false);
+        });
+    };
     const onFinishFailed = (errorInfo: any) => {
         message.error(errorInfo);
     };
 
-    useEffect( () => {
-        if  (signUpData.status===EStatusLoading.SUCCESS){
-            navigate(ProjectRoutes.profileDescription)
-        } else if (signUpData.status===EStatusLoading.ERROR){
-            signUpData.errorMessage&&message.error(signUpData.errorMessage);
+    useEffect(() => {
+        if (signUpData.status === EStatusLoading.SUCCESS) {
+            navigate(ProjectRoutes.profileDescription);
+        } else if (signUpData.status === EStatusLoading.ERROR) {
+            signUpData.errorMessage && message.error(signUpData.errorMessage);
         }
         return () => {
-            dispatch(dropRequestUserDataState())
-        }
-    }, [signUpData.status])
+            dispatch(dropRequestUserDataState());
+        };
+    }, [signUpData.status]);
 
     const validateFormValues = (values: ISignUpData) => {
         const errors = {} as ISignUpData;
-        Object.keys(values).forEach(key => {
-            let result = Validation(key, values[key])
-            if (result!== ""){
-                errors[key] =result;
+        Object.keys(values).forEach((key) => {
+            let result = Validation(key, values[key]);
+            if (result !== '') {
+                errors[key] = result;
             }
-        })
-        console.log('errors', errors)
+        });
         return errors;
-    }
+    };
 
     return (
         <>
@@ -64,37 +63,46 @@ export const SignUp = () => {
                     <Title level={2}>Регистрация</Title>
                 </Col>
             </Row>
-            <Formik initialValues={initialValues} onSubmit={onSubmit} validateOnBlur={true}
-                     validate={validateFormValues} autoComplete={true}>
-                <Form name="basic"
+            <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validateOnBlur={true}
+                validate={validateFormValues}
+                autoComplete={true}
+            >
+                <Form
+                    name="basic"
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 8 }}
                     initialValues={{ remember: true }}
                     onFinishFailed={onFinishFailed}
-                    style={{marginTop: 20}}>
-                    <Form.Item name='first_name' label="Имя" >
-                        <Input name='first_name' showCount={false}/>
+                    style={{ marginTop: 20 }}
+                >
+                    <Form.Item name="first_name" label="Имя">
+                        <Input name="first_name" showCount={false} />
                     </Form.Item>
-                    <Form.Item name='second_name' label="Фамилия" >
-                        <Input name='second_name' showCount={false}/>
+                    <Form.Item name="second_name" label="Фамилия">
+                        <Input name="second_name" showCount={false} />
                     </Form.Item>
-                    <Form.Item name='login' label="Логин" >
-                        <Input name='login'/>
+                    <Form.Item name="login" label="Логин">
+                        <Input name="login" />
                     </Form.Item>
-                    <Form.Item name='email' label="Почта" >
-                        <Input name='email'  />
+                    <Form.Item name="email" label="Почта">
+                        <Input name="email" />
                     </Form.Item>
-                    <Form.Item name='password' label="Пароль" >
-                        <Input.Password name='password' />
+                    <Form.Item name="password" label="Пароль">
+                        <Input.Password name="password" />
                     </Form.Item>
-                    <Form.Item name='phone' label="Телефон" >
-                        <Input name='phone' />
+                    <Form.Item name="phone" label="Телефон">
+                        <Input name="phone" />
                     </Form.Item>
                     <SubmitButton />
                     <ResetButton />
                     <Row className="button__group">
                         <Col>
-                            <SubmitButton block shape="round">Зарегистрироваться</SubmitButton>
+                            <SubmitButton block shape="round">
+                                Зарегистрироваться
+                            </SubmitButton>
                         </Col>
                         <Col>
                             <Button type="link" href={ProjectRoutes.login} block>
@@ -106,4 +114,4 @@ export const SignUp = () => {
             </Formik>
         </>
     );
-}
+};
