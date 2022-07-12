@@ -1,6 +1,4 @@
 .button__group{
-  display: inline-flex !important;
   align-items: center !important;
   flex-direction: column !important;
-  margin-left: 42%;
 }

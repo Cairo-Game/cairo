@@ -9,11 +9,6 @@ function checkLogin(value: string) {
         'Недопустимые символы' : '';
 }
 
-function checkPassword(value: string) {
-    return value.replace(/^(?=^.{8,40}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, '').length > 0 ? 
-        'Выбранный пароль не удовлетворяет требованиям' : '';
-}
-
 function checkPhone(value: string) {
    return value.replace(/^(8|\+7|7)[\d+]{10,15}$/, '').length > 0 ?
          'Введен некорректный номер телефона' : ''

@@ -50,7 +50,7 @@ export const userSlice = createSlice(
                 state.requestData[action.payload].status=EStatusLoading.SUCCESS
             },
             fetchError(state, action){
-               state.requestData[action.payload.key].errorMessage=action.payload.payload.errorMessage
+               state.requestData[action.payload.key].errorMessage=action.payload.errorMessage
               state.requestData[action.payload.key].status=EStatusLoading.ERROR
             },
             fetchUserData(state, action){

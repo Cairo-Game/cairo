@@ -7,7 +7,8 @@
     "start": "webpack serve --mode development --open --hot --history-api-fallback",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern node_modules/"
+    "lint": "eslint --fix . --ext .js,.jsx,.ts,.tsx --ignore-pattern node_modules/",
+    "prettier": "prettier --write  ./src/**/**/*.ts[x]"
   },
   "repository": {
     "type": "git",

@@ -10,11 +10,16 @@ import {ProjectRoutes} from "constants/Routs";
 import {Validation} from "utils/Validation";
 import {EUserProfileFileds} from "models/Common";
 import {EStatusLoading} from "models/Api/common";
+import {useNavigate} from "react-router-dom";
 
 const {Title} = Typography;
 
+/**
+ * Компонент страницы с редактированием профиля пользователя
+ */
 export const ProfileSettings = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const updateProfileData = useAppSelector(state => state.user.requestData?.updateProfileData)
     const userInfoData = useAppSelector(state => state.user.requestData?.userInfoData)
@@ -22,19 +27,10 @@ export const ProfileSettings = () => {
     const {userInfo} = useAppSelector(state => state.user);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    //TODO Поменять значения на те что в стейте когда заработает апишка
-    let initialValues: IUserProfileUpdateData = {
-        first_name: 'Арчибальд',
-        second_name: 'Котиков',
-        login: '',
-        email: '',
-        display_name: '',
-        phone: ''
-    }
-
     const onSubmit = (values: IUserProfileUpdateData, actions) => {
         dispatch(fetchUpdateUserProfile(values)).then(() => {
             actions.setSubmitting(false);
+            navigate(ProjectRoutes.profileDescription)
         });
     }
     const onFinishFailed = (errorInfo: any) => {
@@ -44,6 +40,8 @@ export const ProfileSettings = () => {
     useEffect( () => {
         if (!userInfo.id){
             dispatch(fetchUserInfoData()).then(() => setIsLoading(false))
+        } else {
+            setIsLoading(false)
         }
         return () => {
             dispatch(dropRequestUserDataState())
@@ -53,18 +51,11 @@ export const ProfileSettings = () => {
     useEffect(()=>{
         if (updateProfileData.status === EStatusLoading.ERROR){
             updateProfileData.errorMessage && message.error(updateProfileData.errorMessage, 2)
-        } else if (userInfoData.status === EStatusLoading.ERROR){
+        }
+        if (userInfoData.status === EStatusLoading.ERROR){
             userInfoData.errorMessage && message.error(userInfoData.errorMessage, 2)
             setIsLoading(false)
         } else if (userInfoData.status === EStatusLoading.SUCCESS){
-            initialValues = {
-                first_name: userInfoData.data.first_name,
-                second_name: 'Котиков',
-                login: '',
-                email: '',
-                display_name: '',
-                phone: ''
-            }
             setIsLoading(false)
         }
     }, [userInfoData.status, updateProfileData.status])
@@ -87,7 +78,7 @@ export const ProfileSettings = () => {
                     <Title level={2}>Настройки профиля</Title>
                 </Col>
             </Row>
-            <Formik initialValues={initialValues} onSubmit={onSubmit} validateOnBlur={true}
+            <Formik initialValues={userInfoData?.data} onSubmit={onSubmit} validateOnBlur={true}
                     validate={validateFormValues} autoComplete={true}>
                 <Form name="basic"
                       labelCol={{ span: 8 }}

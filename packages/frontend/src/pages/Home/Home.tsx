@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeItem } from "./components/homeItem/home-item";
+import { HomeItem } from "./components/HomeItem/HomeItem";
 
 export const Home = () => {
   return (

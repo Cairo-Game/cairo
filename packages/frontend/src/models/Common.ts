@@ -1,7 +1,3 @@
-export interface IError {
-    reason: string
-}
-
 export enum EUserProfileFileds {
     first_name= 'Имя',
     second_name = 'Фамилия',

@@ -34,9 +34,7 @@ export const Login = () => {
     };
 
     useEffect( () => {
-            if (userInfoData?.status===EStatusLoading.SUCCESS){
-                navigate(ProjectRoutes.profileDescription)
-            } else if  (signInData?.status===EStatusLoading.SUCCESS){
+            if (signInData?.status===EStatusLoading.SUCCESS || userInfo.id){
                 navigate(ProjectRoutes.profileDescription)
             } else if  (signInData?.status===EStatusLoading.ERROR){
                 signInData?.errorMessage&&message.error(signInData?.errorMessage);
@@ -44,7 +42,7 @@ export const Login = () => {
             return () => {
                 dispatch(dropRequestUserDataState())
             }
-        }, [userInfoData?.status])
+        }, [signInData?.status, userInfoData?.status])
 
     useEffect( () => {
         dispatch(fetchUserInfoData())
@@ -84,8 +82,6 @@ export const Login = () => {
                     <Form.Item name='password' label="Пароль" >
                         <Input.Password name='password' />
                     </Form.Item>
-                    <SubmitButton />
-                    <ResetButton />
                     <Row className="button__group">
                         <Col>
                             <SubmitButton  shape="round">Войти</SubmitButton>

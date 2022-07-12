@@ -3,6 +3,11 @@ import {AppDispatch} from "store/Store";
 import {userSlice} from "store/slices/UserSlice";
 import {ILoginData, ISignUpData, IUserProfileUpdateData} from "models/Api/User.api";
 
+/**
+ * Авторизация пользователя
+ *
+ * @param loginData Логин/пароль пользователя
+ */
 export const fetchUserSignIn = (loginData: ILoginData) => {
     return async (dispatch: AppDispatch) => {
         const key = 'signInData';
@@ -19,6 +24,11 @@ export const fetchUserSignIn = (loginData: ILoginData) => {
     }
 }
 
+/**
+ * Регистрация нового пользователя
+ *
+ * @param signUpData Объект с атрибутами нового пользователя
+ */
 export const fetchUserSignUp = (signUpData: ISignUpData) => {
     return async (dispatch: AppDispatch) => {
         const key = 'signUpData';
@@ -35,6 +45,9 @@ export const fetchUserSignUp = (signUpData: ISignUpData) => {
     }
 }
 
+/**
+ * Получение информации о текущем пользователе
+ */
 export const fetchUserInfoData = () => {
     return async (dispatch: AppDispatch) => {
         const key = 'userInfoData';
@@ -51,6 +64,11 @@ export const fetchUserInfoData = () => {
     }
 }
 
+/**
+ * Обновление настроек профиля
+ *
+ * @param data Объект с атрибутами пользователя
+ */
 export const fetchUpdateUserProfile = (data: IUserProfileUpdateData) => {
     return async (dispatch: AppDispatch) => {
         const key = 'updateProfileData'
@@ -58,22 +76,29 @@ export const fetchUpdateUserProfile = (data: IUserProfileUpdateData) => {
             dispatch(userSlice.actions.fetching(key))
             const response = await axios.put('user/profile', {
                 ...data
-            }).then(response => response.data);
-            dispatch(userSlice.actions.fetchUserData(response));
+            }).then(response => response?.data);
+            dispatch(userSlice.actions.fetchUserData({key, data: response}));
             dispatch(userSlice.actions.fetchSuccess(key));
         }
         catch (e){
-            dispatch(userSlice.actions.fetchError({key, errorMessage: e.response.data?.reason||e.message}))
+            dispatch(userSlice.actions.fetchError({key, errorMessage: e.response?.data?.reason||e.message}))
         }
     }
 }
 
+/**
+ * Сброс состояния результата выполнения запросов
+ *
+ */
 export const dropRequestUserDataState = () => {
     return (dispatch: AppDispatch) => {
         dispatch(userSlice.actions.dropRequestDataState())
     }
 }
 
+/**
+ * Выход из системы (разлогинивание)
+ */
 export const fetchUserLogout = () => {
     return async (dispatch: AppDispatch) => {
         const key = 'logoutData'

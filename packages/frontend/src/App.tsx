@@ -11,6 +11,7 @@ import {SignUp} from "pages/SignUp/SignUp";
 import {ProfileDescription} from "pages/ProfileDescription/ProfileDescription";
 import {ProjectRoutes} from "constants/Routs";
 import {ProfileSettings} from "pages/ProfileSettings/ProfileSettings";
+import MainLayout from "components/Layouts/MainLayout/MainLayout";
 
 class App extends Component {
   render() {
@@ -18,8 +19,8 @@ class App extends Component {
         <Routes>
             <Route path={ProjectRoutes.login} element={<AuthLayout><Login/></AuthLayout>}/>
             <Route path={ProjectRoutes.signUp} element={<AuthLayout><SignUp/></AuthLayout>}/>
-            <Route path={ProjectRoutes.profileDescription} element={<AuthLayout><ProfileDescription/></AuthLayout>}/>
-            <Route path={ProjectRoutes.profileSettings} element={<AuthLayout><ProfileSettings/></AuthLayout>}/>
+            <Route path={ProjectRoutes.profileDescription} element={<MainLayout><ProfileDescription/></MainLayout>}/>
+            <Route path={ProjectRoutes.profileSettings} element={<MainLayout><ProfileSettings/></MainLayout>}/>
         </Routes>
     );
   }

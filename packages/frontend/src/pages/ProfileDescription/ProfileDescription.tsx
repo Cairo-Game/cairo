@@ -22,7 +22,7 @@ export const ProfileDescription = () => {
 
     useEffect(
         ()=>{
-            dispatch(fetchUserInfoData())
+            !userData.id&&dispatch(fetchUserInfoData())
             return () => {
                 dispatch(dropRequestUserDataState())
             }
@@ -40,25 +40,27 @@ export const ProfileDescription = () => {
         }, [userInfoData.status]
     )
 
+    const handleClickLogout = () => {
+        dispatch(fetchUserLogout()).then(() => navigate(ProjectRoutes.login))
+    }
     return (
                 <Card
                     actions={[
-                        //TODO Добавить роут для кнопки Назад когда появится куда
-                        <ArrowLeftOutlined key="goBack"/>,
                         <EditOutlined key="edit" onClick={()=>navigate(ProjectRoutes.profileSettings)}/>,
-                        <LogoutOutlined key="logout" onClick={()=>dispatch(fetchUserLogout())}/>
+                        <LogoutOutlined key="logout" onClick={()=>handleClickLogout()}/>
                     ]}
                     className="description__box"
+                    size="default"
+                    bodyStyle={{minHeight:"80vh"}}
                 >
-                    <Skeleton loading={isLoading} avatar active
-                              className='description__box'  style={{justifyContent:"center"}}>
+                    <Skeleton loading={isLoading} avatar active>
                         {userData.avatar &&
                             <Meta
                                 avatar={<Avatar src={`${process.env.REACT_APP_API_ENDPOINT}/resources/${userData.avatar}`} />}
                                 title={userData?.firstName}
                                 style={{justifyContent:"center"}}
                             />}
-                        <Descriptions column={1} size="small">
+                        <Descriptions column={1} size="middle" >
                             <Descriptions.Item label="Имя">{userData?.firstName}</Descriptions.Item>
                             <Descriptions.Item label="Фамилия">{userData?.secondName}</Descriptions.Item>
                             <Descriptions.Item label="Логин">{userData?.login}</Descriptions.Item>
