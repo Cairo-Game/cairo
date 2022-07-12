@@ -3,10 +3,10 @@ import {Avatar, Card, Descriptions, message, Skeleton, Switch} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "hooks/Redux";
 import {useNavigate} from "react-router-dom";
-import {IUser} from "models/Entity/User";
 import './ProfileDescription.css'
-import {fetchUserData, fetchUserLogout} from "store/actions/UserActions";
+import {dropRequestUserDataState, fetchUserInfoData, fetchUserLogout} from "store/actions/UserActions";
 import {ProjectRoutes} from "constants/Routs";
+import {EStatusLoading} from "models/Api/common";
 
 
 const { Meta } = Card;
@@ -15,26 +15,29 @@ export const ProfileDescription = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const {userInfo: userData, requestData} = useAppSelector(state => state.user);
-    const [isLoaded, setIsLoaded] = useState(null);
+    const userInfoData = useAppSelector(state => state.user.requestData?.userInfoData)
+    const {userInfo: userData} = useAppSelector(state => state.user)
+
+    const [isLoading, setIsLoading] = useState(null);
 
     useEffect(
         ()=>{
-            dispatch(fetchUserData())
+            dispatch(fetchUserInfoData())
+            return () => {
+                dispatch(dropRequestUserDataState())
+            }
         }, []
     )
     useEffect(
         ()=>{
-            if (requestData.isLoading === null){
-                setIsLoaded(true)
-            } else {
-                if (requestData.errorMessage)
-                    {
-                        message.error(requestData.errorMessage, 2)
-                    }
-                setIsLoaded(false)
+            if (!userData.id){
+                navigate(ProjectRoutes.login)
+            } if (userInfoData.status===EStatusLoading.ERROR){
+                userInfoData.errorMessage&&message.error(userInfoData.errorMessage);
+            } else if (userInfoData.status===EStatusLoading.SUCCESS){
+                setIsLoading(false);
             }
-        }, [requestData.isLoading]
+        }, [userInfoData.status]
     )
 
     return (
@@ -47,7 +50,7 @@ export const ProfileDescription = () => {
                     ]}
                     className="description__box"
                 >
-                    <Skeleton loading={isLoaded} avatar active
+                    <Skeleton loading={isLoading} avatar active
                               className='description__box'  style={{justifyContent:"center"}}>
                         {userData.avatar &&
                             <Meta

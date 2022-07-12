@@ -3,11 +3,12 @@ import {Form, Input, ResetButton, SubmitButton} from 'formik-antd'
 import {Button, Col, message, Row} from 'antd';
 import {useAppDispatch, useAppSelector} from "hooks/Redux";
 import {Formik} from 'formik'
-import {dropRequestUserDataState, fetchUserData, fetchUserSignIn} from "store/actions/UserActions";
+import {dropRequestUserDataState, fetchUserInfoData, fetchUserSignIn} from "store/actions/UserActions";
 import {ILoginData, ISignUpData} from "models/Api/User.api";
 import {Validation} from "utils/Validation";
 import {useNavigate} from "react-router-dom";
 import {ProjectRoutes} from "constants/Routs";
+import {EStatusLoading} from "models/Api/common";
 
 const initialValues: ILoginData = {
     password: "",
@@ -18,7 +19,10 @@ export const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const {userInfo, requestData} = useAppSelector(state => state.user)
+    const {userInfo} = useAppSelector(state => state.user)
+    const userInfoData = useAppSelector(state => state.user.requestData?.userInfoData)
+    const signInData = useAppSelector(state => state.user.requestData?.signInData)
+
     const onSubmit = (values: ILoginData, actions) => {
         dispatch(fetchUserSignIn(values)).then(() => {
             actions.setSubmitting(false);
@@ -30,18 +34,20 @@ export const Login = () => {
     };
 
     useEffect( () => {
-            if (requestData.isLoading===false){
-                requestData.errorMessage && message.error(requestData.errorMessage, 2);
-            } else if (requestData.isLoading===true){
+            if (userInfoData?.status===EStatusLoading.SUCCESS){
                 navigate(ProjectRoutes.profileDescription)
+            } else if  (signInData?.status===EStatusLoading.SUCCESS){
+                navigate(ProjectRoutes.profileDescription)
+            } else if  (signInData?.status===EStatusLoading.ERROR){
+                signInData?.errorMessage&&message.error(signInData?.errorMessage);
             }
             return () => {
                 dispatch(dropRequestUserDataState())
             }
-        }, [requestData.isLoading])
+        }, [userInfoData?.status])
 
     useEffect( () => {
-        dispatch(fetchUserData())
+        dispatch(fetchUserInfoData())
         return () => {
             dispatch(dropRequestUserDataState())
         }

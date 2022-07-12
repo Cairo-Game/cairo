@@ -1,31 +1,29 @@
-import { EditOutlined, LogoutOutlined, ArrowLeftOutlined} from '@ant-design/icons';
-import {Avatar, Button, Card, Col, message, Row, Skeleton, Switch, Typography} from 'antd';
+import {Button, Col, message, Row, Skeleton, Typography} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "hooks/Redux";
-import {useNavigate} from "react-router-dom";
 import './ProfileDescription.css'
-import {
-    dropRequestUserDataState,
-    fetchUpdateUserProfile,
-    fetchUserData,
-} from "store/actions/UserActions";
+import {dropRequestUserDataState, fetchUpdateUserProfile, fetchUserInfoData,} from "store/actions/UserActions";
 import {Formik} from "formik";
 import {Form, Input, SubmitButton} from "formik-antd";
 import {IUserProfileUpdateData} from "models/Api/User.api";
 import {ProjectRoutes} from "constants/Routs";
 import {Validation} from "utils/Validation";
 import {EUserProfileFileds} from "models/Common";
+import {EStatusLoading} from "models/Api/common";
 
 const {Title} = Typography;
 
 export const ProfileSettings = () => {
     const dispatch = useAppDispatch();
 
-    const {requestData, userInfo} = useAppSelector(state => state.user);
-    const [isLoaded, setIsLoaded] = useState<boolean>(!userInfo.id);
+    const updateProfileData = useAppSelector(state => state.user.requestData?.updateProfileData)
+    const userInfoData = useAppSelector(state => state.user.requestData?.userInfoData)
+
+    const {userInfo} = useAppSelector(state => state.user);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     //TODO Поменять значения на те что в стейте когда заработает апишка
-    const initialValues: IUserProfileUpdateData = {
+    let initialValues: IUserProfileUpdateData = {
         first_name: 'Арчибальд',
         second_name: 'Котиков',
         login: '',
@@ -45,7 +43,7 @@ export const ProfileSettings = () => {
 
     useEffect( () => {
         if (!userInfo.id){
-            dispatch(fetchUserData()).then(() => setIsLoaded(false))
+            dispatch(fetchUserInfoData()).then(() => setIsLoading(false))
         }
         return () => {
             dispatch(dropRequestUserDataState())
@@ -53,8 +51,23 @@ export const ProfileSettings = () => {
     }, [])
 
     useEffect(()=>{
-        requestData.errorMessage && message.error(requestData.errorMessage, 2);
-    }, [requestData.isLoading])
+        if (updateProfileData.status === EStatusLoading.ERROR){
+            updateProfileData.errorMessage && message.error(updateProfileData.errorMessage, 2)
+        } else if (userInfoData.status === EStatusLoading.ERROR){
+            userInfoData.errorMessage && message.error(userInfoData.errorMessage, 2)
+            setIsLoading(false)
+        } else if (userInfoData.status === EStatusLoading.SUCCESS){
+            initialValues = {
+                first_name: userInfoData.data.first_name,
+                second_name: 'Котиков',
+                login: '',
+                email: '',
+                display_name: '',
+                phone: ''
+            }
+            setIsLoading(false)
+        }
+    }, [userInfoData.status, updateProfileData.status])
 
     const validateFormValues = (values: IUserProfileUpdateData) => {
         const errors = {} as IUserProfileUpdateData;
@@ -68,7 +81,7 @@ export const ProfileSettings = () => {
     }
 
     return (
-        <Skeleton loading={isLoaded}>
+        <Skeleton loading={isLoading}>
             <Row>
                 <Col offset={8}>
                     <Title level={2}>Настройки профиля</Title>
