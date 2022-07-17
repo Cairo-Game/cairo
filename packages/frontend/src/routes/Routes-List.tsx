@@ -7,6 +7,8 @@ import { IRoute } from './interfaces/IRouter';
 import { MainLayout } from '../layouts/MainLayout/MainLayout';
 import { ProfileDescription } from '../pages/ProfileDescription/ProfileDescription';
 import { ProfileSettings } from '../pages/ProfileSettings/ProfileSettings';
+import GamePage from '../pages/GamePage';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 
 export const routes: IRoute[] = [
     {
@@ -15,11 +17,19 @@ export const routes: IRoute[] = [
         children: [
             {
                 path: '',
-                component: <Login />,
+                component: (
+                    <ErrorBoundary>
+                        <Login />
+                    </ErrorBoundary>
+                ),
             },
             {
                 path: ProjectRoutes.signUp,
-                component: <SignUp />,
+                component: (
+                    <ErrorBoundary>
+                        <SignUp />
+                    </ErrorBoundary>
+                ),
             },
         ],
     },
@@ -29,35 +39,24 @@ export const routes: IRoute[] = [
         children: [
             {
                 path: ProjectRoutes.profileDescription,
-                component: <ProfileDescription />,
+                component: (
+                    <ErrorBoundary>
+                        <ProfileDescription />
+                    </ErrorBoundary>
+                ),
             },
             {
                 path: ProjectRoutes.profileSettings,
-                component: <ProfileSettings />,
+                component: (
+                    <ErrorBoundary>
+                        <ProfileSettings />
+                    </ErrorBoundary>
+                ),
+            },
+            {
+                path: ProjectRoutes.gamePage,
+                component: <GamePage />,
             },
         ],
     },
 ];
-
-{
-    /* <Routes>
-<Route
-    path={ProjectRoutes.login}
-    element={
-        <AuthLayout>
-            <Login />
-        </AuthLayout>
-    }
-/>
-<Route
-    path={ProjectRoutes.signUp}
-    element={
-        <AuthLayout>
-            <SignUp />
-        </AuthLayout>
-    }
-/>
-<Route path={ProjectRoutes.profileDescription} element={<ProfileDescription />} />
-<Route path={ProjectRoutes.profileSettings} element={<ProfileSettings />} />
-</Routes> */
-}
