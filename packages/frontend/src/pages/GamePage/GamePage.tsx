@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import Modal from '../../components/Layouts/Modal';
+import EndGameModal from './components/EndGameModal/EndGameModal';
 import { StyledContainer } from './styles';
 
 const randomIntFromInterval = (min: number, max: number) => {
@@ -15,7 +17,7 @@ let rightPressed = false;
 let leftPressed = false;
 
 let blockX = x + 100;
-let blockY = y - 50;
+let blockY = y;
 
 let jumpFLag = false;
 let jumpCount = 0;
@@ -29,6 +31,8 @@ let reqAnimaitonId: any = null;
 const GamePage = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
+    const [win, setWin] = useState(false);
+    const [lose, setLose] = useState(false);
 
     const keyDownHandler = (e: KeyboardEvent) => {
         if (e.key === 'ArrowRight') {
@@ -49,36 +53,23 @@ const GamePage = () => {
     };
 
     const makeBlocks = () => {
-        for (let i = 0; i < 20; i++) {
-            const randomWidth = randomIntFromInterval(10, 50);
-            const randomHeight = randomIntFromInterval(70, 120);
-            const randomX = blockX + randomIntFromInterval(100, 200) * (i + 1);
+        for (let i = 0; i < 10; i++) {
+            const randomWidth = randomIntFromInterval(10, 30);
+
+            const randomX = blockX + i * 200 + randomIntFromInterval(70, 220);
+            const randomY = randomIntFromInterval(190, 250);
+            const randomHeight = blockY - randomY + ballRadius;
             blocks.push({
                 x: randomX,
-                y: blockY,
+                y: randomY,
                 width: randomWidth,
                 height: randomHeight,
             });
         }
 
-        // blocks.sort((a, b) => +a.x - +b.x);
-
-        // for (let i = 0; i < blocks.length; i++) {
-        //     if (i > 0) {
-        //         const prev = blocks[i - 1];
-        //         const current = blocks[i];
-        //         console.log('i ', i);
-
-        //         console.log('prev ', prev);
-        //         console.log('current ', current);
-
-        //         if (current.x - (prev.x + prev.width) < 100) {
-        //             current.x += prev.width + 100;
-        //         }
-        //     }
-        // }
+        blocks.sort((a, b) => +a.x - +b.x);
     };
-
+    console.log(blocks);
     const drawBall = (ctx: CanvasRenderingContext2D) => {
         if (ctx) {
             ctx.beginPath();
@@ -116,15 +107,12 @@ const GamePage = () => {
         for (let i = 0; i < blocks.length; i++) {
             const b = blocks[i];
 
-            if (
-                x + ballRadius / 2 >= b.x &&
-                x - ballRadius / 2 <= b.x + b.width &&
-                y + ballRadius / 2 + jumpHeight < b.y + b.height
-            ) {
-                console.log('lose');
-                x = 30;
-                document.location.reload();
-                cancelAnimationFrame(reqAnimaitonId);
+            if (x + ballRadius / 2 >= b.x && x - ballRadius / 2 <= b.x + b.width && y - jumpHeight > b.y) {
+                setLose(true);
+                // x = 30;
+
+                // document.location.reload();
+                // cancelAnimationFrame(reqAnimaitonId);
             }
         }
     };
@@ -156,9 +144,9 @@ const GamePage = () => {
     const checkWin = () => {
         const lastBlock = blocks[blocks.length - 1];
         if (x > lastBlock.x + lastBlock.width + 50) {
-            console.log('win');
-            document.location.reload();
-            cancelAnimationFrame(reqAnimaitonId);
+            setWin(true);
+            // document.location.reload();
+            // cancelAnimationFrame(reqAnimaitonId);
         }
     };
 
@@ -193,7 +181,9 @@ const GamePage = () => {
     }, [ctx]);
 
     useEffect(() => {
-        draw(ctx);
+        if (!win || !lose) {
+            draw(ctx);
+        }
     }, [ctx]);
 
     useEffect(() => {
@@ -207,8 +197,19 @@ const GamePage = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if (win || lose) {
+            cancelAnimationFrame(reqAnimaitonId);
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 3000);
+        }
+    }, [win, lose]);
+
     return (
         <StyledContainer>
+            {win && <EndGameModal text="Вы победили! :-)" isOpen={win} closeModal={() => setWin(false)} />}
+            {lose && <EndGameModal text="Вы проиграли :-(" isOpen={lose} closeModal={() => setLose(false)} />}
             <canvas ref={canvasRef} />
         </StyledContainer>
     );
