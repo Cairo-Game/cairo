@@ -4,11 +4,15 @@ import { ProjectRoutes } from './Routs';
 
 export const MenuItems = [
     {
-        label: <Link to={ProjectRoutes.profileDescription}>{'Профиль'}</Link>,
-        key: ProjectRoutes.profileDescription,
-    },
-    {
         label: <Link to={ProjectRoutes.gamePage}>{'Игра'}</Link>,
         key: ProjectRoutes.gamePage,
+    },
+    {
+        label: <Link to={ProjectRoutes.rating}>{'Рейтинг'}</Link>,
+        key: ProjectRoutes.rating,
+    },
+    {
+        label: <Link to={ProjectRoutes.profileDescription}>{'Профиль'}</Link>,
+        key: ProjectRoutes.profileDescription,
     },
 ];

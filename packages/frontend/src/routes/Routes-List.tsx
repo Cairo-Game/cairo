@@ -9,6 +9,7 @@ import { ProfileDescription } from '../pages/ProfileDescription/ProfileDescripti
 import { ProfileSettings } from '../pages/ProfileSettings/ProfileSettings';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import { StartScreen } from '../pages/GamePage/StartScreen';
+import { Rating } from '../pages/Rating/Rating';
 
 export const routes: IRoute[] = [
     {
@@ -56,6 +57,10 @@ export const routes: IRoute[] = [
             {
                 path: ProjectRoutes.gamePage,
                 component: <StartScreen />,
+            },
+            {
+                path: ProjectRoutes.rating,
+                component: <Rating />,
             },
         ],
     },
