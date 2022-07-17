@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import Modal from '../../components/Layouts/Modal';
 import EndGameModal from './components/EndGameModal/EndGameModal';
 import { StyledContainer } from './styles';
 
@@ -69,7 +68,7 @@ const GamePage = () => {
 
         blocks.sort((a, b) => +a.x - +b.x);
     };
-    console.log(blocks);
+
     const drawBall = (ctx: CanvasRenderingContext2D) => {
         if (ctx) {
             ctx.beginPath();
