@@ -3,14 +3,9 @@ import { Button } from 'antd';
 
 import Modal from 'components/Layouts/Modal';
 import { StyledContainer, StyledTitle } from './styles';
+import { TEndGameModal } from './EndGameModal.types';
 
-type TEndGameModal = {
-    isOpen: boolean;
-    closeModal: () => void;
-    text: string;
-};
-
-const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, text }) => {
+const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, text, setIsReady }) => {
     const keyDownHandler = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             window.location.reload();
@@ -26,7 +21,10 @@ const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, text }) => {
                     size="large"
                     autoFocus
                     onKeyDown={keyDownHandler}
-                    onClick={() => window.location.reload()}
+                    onClick={() => {
+                        setIsReady(true);
+                        window.location.reload();
+                    }}
                 >
                     Начать заново
                 </Button>

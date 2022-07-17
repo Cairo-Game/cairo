@@ -7,8 +7,8 @@ import { IRoute } from './interfaces/IRouter';
 import { MainLayout } from '../layouts/MainLayout/MainLayout';
 import { ProfileDescription } from '../pages/ProfileDescription/ProfileDescription';
 import { ProfileSettings } from '../pages/ProfileSettings/ProfileSettings';
-import GamePage from '../pages/GamePage';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import { StartScreen } from '../pages/GamePage/StartScreen';
 
 export const routes: IRoute[] = [
     {
@@ -55,7 +55,7 @@ export const routes: IRoute[] = [
             },
             {
                 path: ProjectRoutes.gamePage,
-                component: <GamePage />,
+                component: <StartScreen />,
             },
         ],
     },

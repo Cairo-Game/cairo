@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import Modal from '../../components/Layouts/Modal';
-import EndGameModal from './components/EndGameModal/EndGameModal';
-import { StyledContainer } from './styles';
+import EndGameModal from '../EndGameModal/EndGameModal';
+import { StyledContainer } from '../../styles';
+import { IGamePage } from './GamePage.types';
 
 const randomIntFromInterval = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -28,7 +28,7 @@ let blocks: { x: number; y: number; width: number; height: number }[] = [];
 
 let reqAnimaitonId: any = null;
 
-const GamePage = () => {
+const GamePage = ({ setIsReady }: IGamePage) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
     const [win, setWin] = useState(false);
@@ -69,7 +69,7 @@ const GamePage = () => {
 
         blocks.sort((a, b) => +a.x - +b.x);
     };
-    console.log(blocks);
+
     const drawBall = (ctx: CanvasRenderingContext2D) => {
         if (ctx) {
             ctx.beginPath();
@@ -208,8 +208,22 @@ const GamePage = () => {
 
     return (
         <StyledContainer>
-            {win && <EndGameModal text="Вы победили! :-)" isOpen={win} closeModal={() => setWin(false)} />}
-            {lose && <EndGameModal text="Вы проиграли :-(" isOpen={lose} closeModal={() => setLose(false)} />}
+            {win && (
+                <EndGameModal
+                    text="Вы победили! :-)"
+                    isOpen={win}
+                    closeModal={() => setWin(false)}
+                    setIsReady={setIsReady}
+                />
+            )}
+            {lose && (
+                <EndGameModal
+                    text="Вы проиграли :-("
+                    isOpen={lose}
+                    closeModal={() => setLose(false)}
+                    setIsReady={setIsReady}
+                />
+            )}
             <canvas ref={canvasRef} />
         </StyledContainer>
     );
