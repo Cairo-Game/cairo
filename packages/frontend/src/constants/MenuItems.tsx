@@ -15,4 +15,8 @@ export const MenuItems = [
         label: <Link to={ProjectRoutes.profileDescription}>{'Профиль'}</Link>,
         key: ProjectRoutes.profileDescription,
     },
+    {
+        label: <Link to={ProjectRoutes.forum}>{'Форум'}</Link>,
+        key: ProjectRoutes.forum,
+    },
 ];

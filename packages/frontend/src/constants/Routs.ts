@@ -5,4 +5,5 @@ export const ProjectRoutes = {
     profileSettings: '/profile-settings',
     gamePage: '/game-page',
     rating: '/rating',
+    forum: '/forum',
 };

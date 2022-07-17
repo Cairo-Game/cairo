@@ -10,6 +10,8 @@ import { ProfileSettings } from '../pages/ProfileSettings/ProfileSettings';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import { StartScreen } from '../pages/GamePage/StartScreen';
 import { Rating } from '../pages/Rating/Rating';
+import Forum from 'pages/Forum';
+import TopicDiscussion from 'pages/Forum/components';
 
 export const routes: IRoute[] = [
     {
@@ -61,6 +63,16 @@ export const routes: IRoute[] = [
             {
                 path: ProjectRoutes.rating,
                 component: <Rating />,
+            },
+            {
+                path: ProjectRoutes.forum,
+                component: <Forum />,
+                children: [
+                    {
+                        path: ':topicId',
+                        component: <TopicDiscussion />,
+                    },
+                ],
             },
         ],
     },

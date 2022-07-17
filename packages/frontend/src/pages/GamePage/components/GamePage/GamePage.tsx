@@ -53,6 +53,7 @@ const GamePage = ({ setIsReady }: IGamePage) => {
     };
 
     const makeBlocks = () => {
+        blocks = [];
         for (let i = 0; i < 10; i++) {
             const randomWidth = randomIntFromInterval(10, 30);
 
@@ -109,10 +110,6 @@ const GamePage = ({ setIsReady }: IGamePage) => {
 
             if (x + ballRadius / 2 >= b.x && x - ballRadius / 2 <= b.x + b.width && y - jumpHeight > b.y) {
                 setLose(true);
-                // x = 30;
-
-                // document.location.reload();
-                // cancelAnimationFrame(reqAnimaitonId);
             }
         }
     };
@@ -145,8 +142,6 @@ const GamePage = ({ setIsReady }: IGamePage) => {
         const lastBlock = blocks[blocks.length - 1];
         if (x > lastBlock.x + lastBlock.width + 50) {
             setWin(true);
-            // document.location.reload();
-            // cancelAnimationFrame(reqAnimaitonId);
         }
     };
 
@@ -181,10 +176,10 @@ const GamePage = ({ setIsReady }: IGamePage) => {
     }, [ctx]);
 
     useEffect(() => {
-        if (!win || !lose) {
+        if (!win && !lose) {
             draw(ctx);
         }
-    }, [ctx]);
+    }, [ctx, win, lose]);
 
     useEffect(() => {
         makeBlocks();
@@ -200,11 +195,13 @@ const GamePage = ({ setIsReady }: IGamePage) => {
     useEffect(() => {
         if (win || lose) {
             cancelAnimationFrame(reqAnimaitonId);
-            // setTimeout(() => {
-            //     window.location.reload();
-            // }, 3000);
+            x = 30;
+            makeBlocks();
         }
     }, [win, lose]);
+    console.log('win ', win);
+    console.log('lose ', lose);
+    console.log('blocks ', blocks);
 
     return (
         <StyledContainer>
