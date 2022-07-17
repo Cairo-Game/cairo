@@ -1,51 +1,68 @@
 import React, { FC, useState } from 'react';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { Button, Card, Input, List, Modal, Row } from 'antd';
 import { nanoid } from 'nanoid';
+import { useAppDispatch, useAppSelector } from 'hooks/Redux';
 
+import { addTopic, setTopic } from 'store/slices/ForumSlice';
 import { StyledButton, StyledListHeader } from './styles';
 
 const Forum: FC = () => {
-    const [themeList, setThemeList] = useState<{ title: string; id: string }[]>([]);
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [value, setValue] = useState('');
+    const { topicId } = useParams();
+    const dispatch = useAppDispatch();
+    const { topicList } = useAppSelector((state) => state.forum);
 
-    const addTheme = () => {
-        setThemeList((prev) => [...prev, { title: value, id: nanoid(6) }]);
-    };
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [titleValue, setTitleValue] = useState('');
+    const [messageValue, setMessageValue] = useState('');
 
     const onOk = () => {
-        if (!value) return;
-        addTheme();
-        setValue('');
+        if (!titleValue) return;
+        dispatch(addTopic({ id: nanoid(6), title: titleValue, message: messageValue }));
+        setTitleValue('');
+        setMessageValue('');
         setIsModalVisible(false);
     };
 
     const onCancel = () => {
-        setValue('');
+        setTitleValue('');
+        setMessageValue('');
         setIsModalVisible(false);
     };
 
     return (
-        <Card bodyStyle={{ minHeight: '80vh' }}>
-            <List
-                header={
-                    <Row align="middle">
-                        <StyledListHeader>Темы обсуждения</StyledListHeader>
-                        <StyledButton type="text" onClick={() => setIsModalVisible(true)} style={{ color: 'blue' }}>
-                            Создать новую тему
-                        </StyledButton>
-                    </Row>
-                }
-                pagination={{
-                    pageSize: 10,
-                }}
-                bordered
-                dataSource={themeList}
-                renderItem={({ title }) => <List.Item>{title}</List.Item>}
-            />
+        <Card bodyStyle={{ minHeight: '85vh' }}>
+            {topicId ? (
+                <Outlet />
+            ) : (
+                <List
+                    header={
+                        <Row align="middle">
+                            <StyledListHeader>Темы обсуждения</StyledListHeader>
+                            <StyledButton type="text" onClick={() => setIsModalVisible(true)} style={{ color: 'blue' }}>
+                                Создать новую тему
+                            </StyledButton>
+                        </Row>
+                    }
+                    pagination={{
+                        pageSize: 10,
+                    }}
+                    bordered
+                    dataSource={topicList}
+                    renderItem={({ title, id }) => (
+                        <List.Item key={id}>
+                            <Link to={id} onClick={() => dispatch(setTopic(id))}>
+                                {title}
+                            </Link>
+                        </List.Item>
+                    )}
+                />
+            )}
+
             <Modal
                 title="Добавление новой темы"
                 visible={isModalVisible}
+                onCancel={onCancel}
                 footer={[
                     <Button type="primary" onClick={onOk}>
                         Добавить
@@ -53,7 +70,18 @@ const Forum: FC = () => {
                     <Button onClick={onCancel}>Отменить</Button>,
                 ]}
             >
-                <Input placeholder="Введите название темы" onChange={(e) => setValue(e.target.value)} value={value} />
+                <Row gutter={[16, 16]}>
+                    <Input
+                        placeholder="Введите название темы"
+                        onChange={(e) => setTitleValue(e.target.value)}
+                        value={titleValue}
+                    />
+                    <Input.TextArea
+                        placeholder="Добавьте первое сообщение"
+                        value={messageValue}
+                        onChange={(e) => setMessageValue(e.target.value)}
+                    />
+                </Row>
             </Modal>
         </Card>
     );

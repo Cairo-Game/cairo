@@ -9,6 +9,8 @@ import { ProfileDescription } from '../pages/ProfileDescription/ProfileDescripti
 import { ProfileSettings } from '../pages/ProfileSettings/ProfileSettings';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import { StartScreen } from '../pages/GamePage/StartScreen';
+import Forum from 'pages/Forum';
+import TopicDiscussion from 'pages/Forum/components';
 
 export const routes: IRoute[] = [
     {
@@ -56,6 +58,16 @@ export const routes: IRoute[] = [
             {
                 path: ProjectRoutes.gamePage,
                 component: <StartScreen />,
+            },
+            {
+                path: ProjectRoutes.forum,
+                component: <Forum />,
+                children: [
+                    {
+                        path: ':topicId',
+                        component: <TopicDiscussion />,
+                    },
+                ],
             },
         ],
     },

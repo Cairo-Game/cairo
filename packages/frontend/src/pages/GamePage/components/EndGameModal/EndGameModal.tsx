@@ -8,7 +8,8 @@ import { TEndGameModal } from './EndGameModal.types';
 const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, text, setIsReady }) => {
     const keyDownHandler = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            window.location.reload();
+            // window.location.reload();
+            closeModal();
         }
     };
 
@@ -23,7 +24,8 @@ const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, text, setIsReady 
                     onKeyDown={keyDownHandler}
                     onClick={() => {
                         setIsReady(true);
-                        window.location.reload();
+                        closeModal();
+                        // window.location.reload();
                     }}
                 >
                     Начать заново

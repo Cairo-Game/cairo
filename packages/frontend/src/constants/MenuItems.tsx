@@ -11,4 +11,8 @@ export const MenuItems = [
         label: <Link to={ProjectRoutes.gamePage}>{'Игра'}</Link>,
         key: ProjectRoutes.gamePage,
     },
+    {
+        label: <Link to={ProjectRoutes.forum}>{'Форум'}</Link>,
+        key: ProjectRoutes.forum,
+    },
 ];

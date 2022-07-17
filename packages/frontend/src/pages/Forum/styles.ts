@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import { Button, Typography } from 'antd';
 
 export const StyledButton = styled(Button)`
