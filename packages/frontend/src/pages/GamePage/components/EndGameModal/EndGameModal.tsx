@@ -21,7 +21,13 @@ const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, text }) => {
         <Modal isOpen={isOpen} setOpen={closeModal} padding="32px">
             <StyledContainer>
                 <StyledTitle>{text}</StyledTitle>
-                <Button type="primary" size="large" autoFocus onKeyDown={keyDownHandler}>
+                <Button
+                    type="primary"
+                    size="large"
+                    autoFocus
+                    onKeyDown={keyDownHandler}
+                    onClick={() => window.location.reload()}
+                >
                     Начать заново
                 </Button>
             </StyledContainer>

@@ -13,6 +13,7 @@ import { ProjectRoutes } from 'constants/Routs';
 import { ProfileSettings } from 'pages/ProfileSettings/ProfileSettings';
 import MainLayout from 'components/Layouts/MainLayout/MainLayout';
 import GamePage from 'pages/GamePage';
+import Forum from 'pages/Forum';
 
 class App extends Component {
     render() {
@@ -55,6 +56,14 @@ class App extends Component {
                     element={
                         <MainLayout>
                             <GamePage />
+                        </MainLayout>
+                    }
+                />
+                <Route
+                    path={ProjectRoutes.forum}
+                    element={
+                        <MainLayout>
+                            <Forum />
                         </MainLayout>
                     }
                 />
