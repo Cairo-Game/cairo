@@ -4,4 +4,5 @@ export const ProjectRoutes = {
     profileDescription: '/profile-description',
     profileSettings: '/profile-settings',
     gamePage: '/game-page',
+    rating: '/rating',
 };
