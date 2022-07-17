@@ -9,6 +9,7 @@ export const RatingItemContainer = styled.div`
     border-radius: 15px;
     background-color: white;
     max-width: 600px;
+    width: 600px;
 `;
 
 export const LeftSide = styled.div`
