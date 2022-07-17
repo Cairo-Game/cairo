@@ -1,8 +1,9 @@
 import React from 'react';
+import { IErrorBoundary } from './ErrorBoundary.types';
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends React.Component<IErrorBoundary, any> {
     props = {
-        children: <div></div>
+        children: <div></div>,
     };
 
     state = {
@@ -26,8 +27,7 @@ class ErrorBoundary extends React.Component {
         const children = this.props.children;
 
         if (this.state.hasError) {
-            // You can render any custom fallback UI
-            return <h1>Something went wrong.</h1>;
+            return <h1>Что-то пошло не так :(</h1>;
         }
 
         return children;
