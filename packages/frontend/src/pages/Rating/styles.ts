@@ -7,5 +7,6 @@ export const Container = styled.div`
     column-gap: 10px;
     row-gap: 10px;
     justify-content: center;
-    margin: 0 15%;
+    margin: 0 auto;
+    max-width: 1200px;
 `;
