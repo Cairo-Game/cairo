@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const DotenvWebpackPlugin = require('dotenv-webpack');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -10,6 +11,13 @@ module.exports = {
     filename: '[name].[chunkhash].bundle.js',
     clean: true,
     assetModuleFilename: '[name][ext]',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+    minimize: true,
+    minimizer: [new TerserPlugin()],
   },
   module: {
     rules: [

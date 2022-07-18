@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd ./packages/frontend && npm run build && rm -rf ../../docker/builds/frontend && mkdirp ../../docker/builds/frontend && cp -r dist/* ../../docker/builds/frontend"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Cairo-Game/frontend/issues"
   },
-  "homepage": "https://github.com/Cairo-Game/frontend#readme"
+  "homepage": "https://github.com/Cairo-Game/frontend#readme",
+  "devDependencies": {
+    "mkdirp": "1.0.4"
+  }
 }
