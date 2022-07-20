@@ -99,14 +99,15 @@ export const dropRequestUserDataState = () => {
 /**
  * Выход из системы (разлогинивание)
  */
-export const fetchUserLogout = () => {
+export const fetchUserLogout = (redirectCallback: () => void) => {
     return async (dispatch: AppDispatch) => {
         const key = 'logoutData'
         try {
             dispatch(userSlice.actions.fetching(key))
             const response = await axios.post('auth/logout')
             dispatch(userSlice.actions.fetchSuccess(key));
-            dispatch(userSlice.actions.dropState())
+            await dispatch(userSlice.actions.dropUserState())
+            redirectCallback()
         }
         catch (e){
             dispatch(userSlice.actions.fetchError({key, errorMessage: e.response.data?.reason||e.message}))

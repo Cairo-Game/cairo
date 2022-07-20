@@ -105,7 +105,7 @@ export const SignUp = () => {
                             </SubmitButton>
                         </Col>
                         <Col>
-                            <Button type="link" href={ProjectRoutes.login} block>
+                            <Button type="link" onClick={()=>navigate(ProjectRoutes.login)} block>
                                 Войти
                             </Button>
                         </Col>

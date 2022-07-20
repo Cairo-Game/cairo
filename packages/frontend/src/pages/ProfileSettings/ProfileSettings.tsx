@@ -24,7 +24,6 @@ export const ProfileSettings = () => {
     const updateProfileData = useAppSelector((state) => state.user.requestData?.updateProfileData);
     const userInfoData = useAppSelector((state) => state.user.requestData?.userInfoData);
 
-    const { userInfo } = useAppSelector((state) => state.user);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const onSubmit = (values: IUserProfileUpdateData, actions) => {
@@ -38,11 +37,7 @@ export const ProfileSettings = () => {
     };
 
     useEffect(() => {
-        if (!userInfo.id) {
-            dispatch(fetchUserInfoData()).then(() => setIsLoading(false));
-        } else {
-            setIsLoading(false);
-        }
+        dispatch(fetchUserInfoData()).then(() => setIsLoading(false));
         return () => {
             dispatch(dropRequestUserDataState());
         };
@@ -80,6 +75,7 @@ export const ProfileSettings = () => {
             </Row>
             <Formik
                 initialValues={userInfoData?.data}
+                enableReinitialize={true}
                 onSubmit={onSubmit}
                 validateOnBlur={true}
                 validate={validateFormValues}
