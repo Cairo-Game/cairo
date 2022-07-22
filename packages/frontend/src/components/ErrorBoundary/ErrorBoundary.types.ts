@@ -1,1 +1,3 @@
-export interface IErrorBoundary {}
+export interface IErrorBoundary {
+    children: React.ReactNode
+}

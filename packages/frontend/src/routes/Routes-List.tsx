@@ -7,7 +7,6 @@ import { IRoute } from './interfaces/IRouter';
 import { MainLayout } from '../layouts/MainLayout/MainLayout';
 import { ProfileDescription } from '../pages/ProfileDescription/ProfileDescription';
 import { ProfileSettings } from '../pages/ProfileSettings/ProfileSettings';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import { StartScreen } from '../pages/GamePage/StartScreen';
 import { Rating } from '../pages/Rating/Rating';
 import Forum from 'pages/Forum';
@@ -20,19 +19,11 @@ export const routes: IRoute[] = [
         children: [
             {
                 path: '',
-                component: (
-                    <ErrorBoundary>
-                        <Login />
-                    </ErrorBoundary>
-                ),
+                component: <Login />,
             },
             {
                 path: ProjectRoutes.signUp,
-                component: (
-                    <ErrorBoundary>
-                        <SignUp />
-                    </ErrorBoundary>
-                ),
+                component: <SignUp />,
             },
         ],
     },
@@ -42,19 +33,11 @@ export const routes: IRoute[] = [
         children: [
             {
                 path: ProjectRoutes.profileDescription,
-                component: (
-                    <ErrorBoundary>
-                        <ProfileDescription />
-                    </ErrorBoundary>
-                ),
+                component: <ProfileDescription />,
             },
             {
                 path: ProjectRoutes.profileSettings,
-                component: (
-                    <ErrorBoundary>
-                        <ProfileSettings />
-                    </ErrorBoundary>
-                ),
+                component: <ProfileSettings />,
             },
             {
                 path: ProjectRoutes.gamePage,
