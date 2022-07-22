@@ -1,10 +1,10 @@
-import { EditOutlined, LogoutOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { Avatar, Card, Descriptions, message, Skeleton, Switch } from 'antd';
+import { EditOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Avatar, Card, Descriptions, message, Skeleton } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/Redux';
 import { useNavigate } from 'react-router-dom';
 import './ProfileDescription.css';
-import { dropRequestUserDataState, fetchUserInfoData, fetchUserLogout } from 'store/actions/UserActions';
+import {dropRequestUserDataState, fetchUserInfoData, fetchUserLogout} from 'store/actions/UserActions';
 import { ProjectRoutes } from 'constants/Routs';
 import { EStatusLoading } from 'models/Api/common';
 
@@ -25,6 +25,7 @@ export const ProfileDescription = () => {
             dispatch(dropRequestUserDataState());
         };
     }, []);
+
     useEffect(() => {
         if (!userData.id) {
             navigate(ProjectRoutes.login);
@@ -37,7 +38,7 @@ export const ProfileDescription = () => {
     }, [userInfoData.status]);
 
     const handleClickLogout = () => {
-        dispatch(fetchUserLogout()).then(() => navigate(ProjectRoutes.login));
+        dispatch(fetchUserLogout(()=>navigate(ProjectRoutes.login)));
     };
     return (
         <Card

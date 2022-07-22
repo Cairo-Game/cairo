@@ -42,7 +42,6 @@ export const userSlice = createSlice(
         initialState: initialState(),
         reducers: {
             fetching(state, action){
-                console.log('action:',action)
                 const key = action.payload;
                 state.requestData[key].status=EStatusLoading.IN_PROGRESS
             },
@@ -64,8 +63,8 @@ export const userSlice = createSlice(
             dropRequestDataState(state){
                 state.requestData=initialState().requestData
             },
-            dropState(state){
-                state = initialState()
+            dropUserState(state){
+                state.userInfo=initialState().userInfo
             },
         }
     }

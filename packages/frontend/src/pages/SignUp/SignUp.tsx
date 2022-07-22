@@ -9,6 +9,8 @@ import { Validation } from 'utils/Validation';
 import { useNavigate } from 'react-router-dom';
 import { ProjectRoutes } from 'constants/Routs';
 import { EStatusLoading } from 'models/Api/common';
+import './SignUp.css';
+
 const { Title } = Typography;
 
 const initialValues: ISignUpData = {
@@ -58,8 +60,8 @@ export const SignUp = () => {
 
     return (
         <>
-            <Row>
-                <Col offset={8}>
+            <Row className="sign__up__header">
+                <Col>
                     <Title level={2}>Регистрация</Title>
                 </Col>
             </Row>
@@ -105,7 +107,7 @@ export const SignUp = () => {
                             </SubmitButton>
                         </Col>
                         <Col>
-                            <Button type="link" href={ProjectRoutes.login} block>
+                            <Button type="link" onClick={()=>navigate(ProjectRoutes.login)} block>
                                 Войти
                             </Button>
                         </Col>
