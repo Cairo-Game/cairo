@@ -11,7 +11,7 @@ import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import { StartScreen } from '../pages/GamePage/StartScreen';
 import { Rating } from '../pages/Rating/Rating';
 import Forum from 'pages/Forum';
-import TopicDiscussion from 'pages/Forum/components';
+import TopicDiscussion from 'pages/Forum/components/TopicDiscussion';
 
 export const routes: IRoute[] = [
     {

@@ -15,7 +15,7 @@ export const MainLayout = () => {
                 <div className="logo" />
                 <Menu theme="light" mode="horizontal" defaultSelectedKeys={[location.pathname]} items={MenuItems} />
             </Header>
-            <Content style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <Content>
                 <Outlet />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Cairo Game</Footer>
