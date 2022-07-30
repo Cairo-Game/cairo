@@ -69,4 +69,12 @@ module.exports = {
         }),
         new DotenvWebpackPlugin(),
     ],
+    devServer: {
+        static: { directory: path.resolve(__dirname, 'dist') },
+        port: 3000,
+        compress: true,
+        open: true,
+        hot: true,
+        historyApiFallback: true,
+    },
 };
