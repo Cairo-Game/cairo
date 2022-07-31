@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import { setupStore } from 'store/Store';
-import registerServiceWorker from '../src/registerServiceWorker';
+import registerServiceWorker from '../registerServiceWorker';
 
 const container = document.getElementById('main');
 const root = createRoot(container);
