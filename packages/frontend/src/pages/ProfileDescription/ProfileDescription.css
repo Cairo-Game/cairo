@@ -1,7 +1,13 @@
-.description__content{
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: flex-end;
-    background: #27aedb;
+.description__card__content{
+    padding-top: 40px !important;
+}
+.description__card__info__content{
+    padding-left: 40px !important;
+    margin-top: 40px;
+    width: 500px !important;
+}
+
+.description__avatar{
+    min-height: 150px !important;
+    min-width: 150px !important;
 }
