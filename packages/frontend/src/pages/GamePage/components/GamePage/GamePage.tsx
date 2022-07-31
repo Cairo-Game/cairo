@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import EndGameModal from '../EndGameModal/EndGameModal';
-import { StyledContainer } from '../../styles';
+import { StyledContainer, StyledCanvas, StyledFullScreenButton } from '../../styles';
 import { IGamePage } from './GamePage.types';
 
 const randomIntFromInterval = (min: number, max: number) => {
@@ -33,6 +33,7 @@ const GamePage = ({ setIsReady }: IGamePage) => {
     const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
     const [win, setWin] = useState(false);
     const [lose, setLose] = useState(false);
+    const [isFullScreen, setIsFullScreen] = useState(true);
 
     const keyDownHandler = (e: KeyboardEvent) => {
         if (e.key === 'ArrowRight') {
@@ -199,9 +200,17 @@ const GamePage = ({ setIsReady }: IGamePage) => {
             makeBlocks();
         }
     }, [win, lose]);
-    console.log('win ', win);
-    console.log('lose ', lose);
-    console.log('blocks ', blocks);
+
+    const toggleFullScreen = () => {
+        setIsFullScreen(!!document.fullscreenElement);
+        const body = document.body;
+
+        if (!document.fullscreenElement) {
+            body.requestFullscreen();
+        } else if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    };
 
     return (
         <StyledContainer>
@@ -221,7 +230,10 @@ const GamePage = ({ setIsReady }: IGamePage) => {
                     setIsReady={setIsReady}
                 />
             )}
-            <canvas ref={canvasRef} />
+            <StyledCanvas ref={canvasRef} />
+            <StyledFullScreenButton type="button" onClick={toggleFullScreen}>
+                {isFullScreen ? 'Полноэкранный режим' : 'Выйти из полноэкранного режима'}
+            </StyledFullScreenButton>
         </StyledContainer>
     );
 };
