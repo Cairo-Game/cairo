@@ -79,6 +79,7 @@
     "react-test-renderer": "18.2.0",
     "styled-components": "5.3.5",
     "ts-jest": "28.0.7",
-    "ts-node": "10.9.1"
+    "ts-node": "10.9.1",
+    "workbox-webpack-plugin": "6.5.4"
   }
 }
