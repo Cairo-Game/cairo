@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const DotenvWebpackPlugin = require('dotenv-webpack');
 const TerserPlugin = require('terser-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -68,5 +69,18 @@ module.exports = {
             ],
         }),
         new DotenvWebpackPlugin(),
-    ],
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
+            maximumFileSizeToCacheInBytes: 5000000,
+        }),
+],
+    devServer: {
+        static: { directory: path.resolve(__dirname, 'dist') },
+        port: 3000,
+        compress: true,
+        open: true,
+        hot: true,
+        historyApiFallback: true,
+    },
 };
