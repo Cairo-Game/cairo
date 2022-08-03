@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Button } from 'antd';
 
 import Modal from 'components/Layouts/Modal';
 import { StyledContainer, StyledTitle } from './styles';
 import { TEndGameModal } from './EndGameModal.types';
 
-const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, text, setIsReady }) => {
+const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, isWin, text, setIsReady }) => {
     const keyDownHandler = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             // window.location.reload();
@@ -28,7 +28,7 @@ const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, text, setIsReady 
                         // window.location.reload();
                     }}
                 >
-                    Начать заново
+                    {isWin ? 'Следующий уровень' : 'Начать заново'}
                 </Button>
             </StyledContainer>
         </Modal>
