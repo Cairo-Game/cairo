@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import EndGameModal from '../EndGameModal/EndGameModal';
-import { GameBottom, StyledContainer } from '../../styles';
+import { GameBottom, StyledContainer, StyledCanvas, StyledFullScreenButton } from '../../styles';
 import { IGamePage, TBlock } from './GamePage.types';
 import {
     jump,
@@ -40,6 +40,7 @@ const GamePage = ({ setIsReady }: IGamePage) => {
     const [lose, setLose] = useState(false);
     const [lvl, setLvl] = useState(1);
     const [lives, setLives] = useState(startLivesCount);
+    const [isFullScreen, setIsFullScreen] = useState(true);
 
     const [leftPressedState, setLeftPressed] = useState(false);
     const [rightPressedState, setRightPressed] = useState(false);
@@ -217,6 +218,17 @@ const GamePage = ({ setIsReady }: IGamePage) => {
         }
     }, [win, lose]);
 
+    const toggleFullScreen = () => {
+        setIsFullScreen(!!document.fullscreenElement);
+        const body = document.body;
+
+        if (!document.fullscreenElement) {
+            body.requestFullscreen();
+        } else if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    };
+
     return (
         <StyledContainer>
             {win && (
@@ -237,8 +249,11 @@ const GamePage = ({ setIsReady }: IGamePage) => {
                     setIsReady={setIsReady}
                 />
             )}
-            <canvas ref={canvasRef} />
+            <StyledCanvas ref={canvasRef} />
             <GameBottom />
+            <StyledFullScreenButton type="button" onClick={toggleFullScreen}>
+                {isFullScreen ? 'Полноэкранный режим' : 'Выйти из полноэкранного режима'}
+            </StyledFullScreenButton>
         </StyledContainer>
     );
 };
