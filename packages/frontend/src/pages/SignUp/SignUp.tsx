@@ -9,7 +9,7 @@ import { Validation } from 'utils/Validation';
 import { useNavigate } from 'react-router-dom';
 import { ProjectRoutes } from 'constants/Routs';
 import { EStatusLoading } from 'models/Api/common';
-import './SignUp.css';
+import 'pages/SignUp/SignUp.css';
 
 const { Title } = Typography;
 
@@ -25,7 +25,7 @@ export const SignUp = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const signUpData = useAppSelector((state) => state.user.requestData.signUpData);
+    const signUpData = useAppSelector((state) => state.user.requestData?.signUpData);
 
     const onSubmit = (values: ISignUpData, actions) => {
         dispatch(fetchUserSignUp(values)).then(() => {
@@ -37,15 +37,15 @@ export const SignUp = () => {
     };
 
     useEffect(() => {
-        if (signUpData.status === EStatusLoading.SUCCESS) {
+        if (signUpData?.status === EStatusLoading.SUCCESS) {
             navigate(ProjectRoutes.profileDescription);
-        } else if (signUpData.status === EStatusLoading.ERROR) {
-            signUpData.errorMessage && message.error(signUpData.errorMessage);
+        } else if (signUpData?.status === EStatusLoading.ERROR) {
+            signUpData?.errorMessage && message.error(signUpData?.errorMessage);
         }
         return () => {
             dispatch(dropRequestUserDataState());
         };
-    }, [signUpData.status]);
+    }, [signUpData?.status]);
 
     const validateFormValues = (values: ISignUpData) => {
         const errors = {} as ISignUpData;
