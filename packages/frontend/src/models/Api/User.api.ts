@@ -26,3 +26,15 @@ export interface IUserProfileData extends IUserProfileUpdateData{
     password: string,
     avatar: string
 }
+
+export interface IPasswordForm {
+    oldPassword: string,
+    newPassword: string,
+    newPasswordRepeat: string,
+}
+
+export enum EPasswordFields {
+    oldPassword =  'Старый пароль',
+    newPassword = 'Новый пароль',
+    newPasswordRepeat = 'Повторите пароль',
+}

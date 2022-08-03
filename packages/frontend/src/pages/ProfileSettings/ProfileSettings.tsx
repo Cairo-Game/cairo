@@ -1,7 +1,7 @@
-import { Button, Col, message, Row, Skeleton, Typography } from 'antd';
+import {Button, Col, message, Modal, Row, Skeleton, Typography} from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks/Redux';
-import './ProfileDescription.css';
+import './ProfileSettings.css';
 import { dropRequestUserDataState, fetchUpdateUserProfile, fetchUserInfoData } from 'store/actions/UserActions';
 import { Formik } from 'formik';
 import { Form, Input, SubmitButton } from 'formik-antd';
@@ -11,6 +11,8 @@ import { Validation } from 'utils/Validation';
 import { EUserProfileFileds } from 'models/Common';
 import { EStatusLoading } from 'models/Api/common';
 import { useNavigate } from 'react-router-dom';
+import {PasswordModal} from "pages/ProfileSettings/PasswordModal/PasswordModal";
+import {AvatarModal} from "pages/ProfileSettings/AvatarModal/AvatarModal";
 
 const { Title } = Typography;
 
@@ -25,6 +27,8 @@ export const ProfileSettings = () => {
     const userInfoData = useAppSelector((state) => state.user.requestData?.userInfoData);
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isPasswordModalVisible, setIsPasswordModalVisible] = useState<boolean>(false);
+    const [isAvatarModalVisible, setIsAvatarModalVisible] = useState<boolean>(false);
 
     const onSubmit = (values: IUserProfileUpdateData, actions) => {
         dispatch(fetchUpdateUserProfile(values)).then(() => {
@@ -32,6 +36,7 @@ export const ProfileSettings = () => {
             navigate(ProjectRoutes.profileDescription);
         });
     };
+
     const onFinishFailed = (errorInfo: any) => {
         message.error(errorInfo);
     };
@@ -94,18 +99,26 @@ export const ProfileSettings = () => {
                             <Input name={key} />
                         </Form.Item>
                     ))}
-                    <Row className="button__group">
+                    <Row className="profile__settings__button__group">
+                        <Col>
+                            <Button shape="round" onClick={() => setIsPasswordModalVisible(true)}>Изменить пароль</Button>
+                        </Col>
+                        <Col>
+                            <Button shape="round" onClick={() => setIsAvatarModalVisible(true)}>Изменить аватар</Button>
+                        </Col>
                         <Col>
                             <SubmitButton shape="round">Сохранить</SubmitButton>
                         </Col>
                         <Col>
-                            <Button type="link" href={ProjectRoutes.profileDescription} shape="round">
+                            <Button type="link" shape="round" onClick={() => navigate(ProjectRoutes.profileDescription)}>
                                 Назад
                             </Button>
                         </Col>
                     </Row>
                 </Form>
             </Formik>
+            <PasswordModal isModalVisible={isPasswordModalVisible} onChangeVisibilityCallback={setIsPasswordModalVisible}/>
+            <AvatarModal isModalVisible={isAvatarModalVisible} onChangeVisibilityCallback={setIsAvatarModalVisible}/>
         </Skeleton>
     );
 };

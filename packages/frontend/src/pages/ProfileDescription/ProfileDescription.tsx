@@ -46,19 +46,20 @@ export const ProfileDescription = () => {
                 <EditOutlined key="edit" onClick={() => navigate(ProjectRoutes.profileSettings)} />,
                 <LogoutOutlined key="logout" onClick={() => handleClickLogout()} />,
             ]}
-            className="description__box"
+            className="description__card__content"
             size="default"
-            bodyStyle={{ minHeight: '80vh' }}
+            bodyStyle={{ minHeight: '80vh'}}
         >
             <Skeleton loading={isLoading} avatar active>
                 {userData.avatar && (
                     <Meta
-                        avatar={<Avatar src={`${process.env.REACT_APP_API_ENDPOINT}/resources/${userData.avatar}`} />}
+                        avatar={<Avatar src={`${process.env.REACT_APP_API_ENDPOINT}/resources/${userData.avatar}`}
+                                        className="description__avatar"/>}
                         title={userData?.firstName}
-                        style={{ justifyContent: 'center' }}
+                        style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}
                     />
                 )}
-                <Descriptions column={1} size="middle">
+                <Descriptions column={1} size="middle" className='description__card__info__content'>
                     <Descriptions.Item label="Имя">{userData?.firstName}</Descriptions.Item>
                     <Descriptions.Item label="Фамилия">{userData?.secondName}</Descriptions.Item>
                     <Descriptions.Item label="Логин">{userData?.login}</Descriptions.Item>
