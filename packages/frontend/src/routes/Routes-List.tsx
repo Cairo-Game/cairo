@@ -11,6 +11,7 @@ import { StartScreen } from '../pages/GamePage/StartScreen';
 import { Rating } from '../pages/Rating/Rating';
 import Forum from 'pages/Forum';
 import TopicDiscussion from 'pages/Forum/components/TopicDiscussion';
+import { GameLayout } from '../layouts/GameLayout/GameLayout';
 
 export const routes: IRoute[] = [
     {
@@ -40,10 +41,6 @@ export const routes: IRoute[] = [
                 component: <ProfileSettings />,
             },
             {
-                path: ProjectRoutes.gamePage,
-                component: <StartScreen />,
-            },
-            {
                 path: ProjectRoutes.rating,
                 component: <Rating />,
             },
@@ -56,6 +53,16 @@ export const routes: IRoute[] = [
                         component: <TopicDiscussion />,
                     },
                 ],
+            },
+        ],
+    },
+    {
+        path: '',
+        component: <GameLayout />,
+        children: [
+            {
+                path: ProjectRoutes.gamePage,
+                component: <StartScreen />,
             },
         ],
     },

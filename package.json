@@ -20,5 +20,6 @@
   "homepage": "https://github.com/Cairo-Game/frontend#readme",
   "devDependencies": {
     "mkdirp": "1.0.4"
-  }
+  },
+  "dependencies": {}
 }
