@@ -1,4 +1,4 @@
-const vendorsManifest = require('../dist/webpack/vendors-manifest.json');
+const vendorsManifest = require('../../dist/webpack/vendors-manifest.json');
 
 const files = Object.keys(vendorsManifest.content);
 
