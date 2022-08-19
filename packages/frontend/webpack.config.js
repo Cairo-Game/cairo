@@ -61,6 +61,8 @@ module.exports = {
             typings: path.resolve(__dirname, 'src/typings'),
             utils: path.resolve(__dirname, 'src/utils'),
             constants: path.resolve(__dirname, 'src/constants'),
+            webpack: path.resolve(__dirname, 'webpack'),
+            lib: path.resolve(__dirname, 'lib'),
         },
     },
     plugins: [
@@ -80,7 +82,7 @@ module.exports = {
         new WorkboxPlugin.GenerateSW({
             clientsClaim: true,
             skipWaiting: true,
-            maximumFileSizeToCacheInBytes: 5000000,
+            maximumFileSizeToCacheInBytes: 6000000,
         }),
 ],
     devServer: {

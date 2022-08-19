@@ -21,5 +21,7 @@
   "devDependencies": {
     "mkdirp": "1.0.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-helmet": "6.1.0"
+  }
 }
