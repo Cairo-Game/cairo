@@ -3,7 +3,7 @@ import { Form, Input, SubmitButton } from 'formik-antd';
 import { Button, Col, message, Row } from 'antd';
 import { useAppDispatch, useAppSelector } from 'hooks/Redux';
 import { Formik } from 'formik';
-import { dropRequestUserDataState, fetchUserInfoData, fetchUserSignIn } from 'store/actions/UserActions';
+import {dropRequestUserDataState, fetchUserInfoData, fetchUserOAuth, fetchUserSignIn} from 'store/actions/UserActions';
 import { ILoginData, ISignUpData } from 'models/Api/User.api';
 import { Validation } from 'utils/Validation';
 import { useNavigate } from 'react-router-dom';
@@ -32,6 +32,10 @@ export const Login = () => {
     const onFinishFailed = (errorInfo: any) => {
         message.error(errorInfo);
     };
+
+    const handleClickYandexAuth = () => {
+        dispatch(fetchUserOAuth());
+    }
     
     useEffect(() => {
         if (signInData?.status === EStatusLoading.SUCCESS || userInfo.id) {
@@ -90,6 +94,11 @@ export const Login = () => {
                     <Col>
                         <Button type="link" onClick={()=>navigate(ProjectRoutes.signUp)}>
                             Нет аккаунта?
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Button type="link" onClick={() => handleClickYandexAuth()}>
+                            Войти с учетной записью Yandex
                         </Button>
                     </Col>
                 </Row>

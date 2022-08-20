@@ -27,6 +27,35 @@ export const fetchUserSignIn = (loginData: ILoginData) => {
 }
 
 /**
+ * OAuth Авторизация пользователя
+ **/
+export const fetchUserOAuth = () => {
+    return async (dispatch: AppDispatch) => {
+        const key = 'OAuthSignInData';
+        console.log('fetchUserOAuth')
+
+        try {
+            dispatch(userSlice.actions.fetching(key))
+            const redirectUri = window.location.origin || null;
+            const responseAppId = await axios.get(`/oauth/yandex/service-id`, {params: {redirectUri}})
+                .then(response => response?.data);
+            console.log({responseAppId})
+            console.log('fetchUserOAuth')
+            if (responseAppId?.service_id){
+                await axios.post(`/oauth/yandex`, {redirect_uri: redirectUri, code: responseAppId?.service_id})
+                    .then(response => response?.data).then( () =>
+                        fetchUserInfoData()
+                    )
+            }
+            dispatch(userSlice.actions.fetchSuccess(key))
+        }
+        catch (e){
+            dispatch(userSlice.actions.fetchError({key, errorMessage: e.response.data?.reason||e.message}))
+        }
+    }
+}
+
+/**
  * Регистрация нового пользователя
  *
  * @param signUpData Объект с атрибутами нового пользователя

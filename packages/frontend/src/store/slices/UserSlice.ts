@@ -15,6 +15,7 @@ export interface UserState {
         updateProfileData: IRequestDataState<any>
         updateProfilePassword: IRequestDataState<any>
         updateProfileAvatar: IRequestDataState<any>
+        OAuthSignInData: IRequestDataState<any>
     }>|null
 }
 
@@ -36,7 +37,8 @@ const initialState = () : UserState => ({
         signUpData: {} as IRequestDataState<any>,
         updateProfileData: {} as IRequestDataState<any>,
         updateProfilePassword: {} as IRequestDataState<any>,
-        updateProfileAvatar: {} as IRequestDataState<any>
+        updateProfileAvatar: {} as IRequestDataState<any>,
+        OAuthSignInData: {} as IRequestDataState<any>
     }
 })
 

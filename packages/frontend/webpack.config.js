@@ -80,7 +80,7 @@ module.exports = {
         new WorkboxPlugin.GenerateSW({
             clientsClaim: true,
             skipWaiting: true,
-            maximumFileSizeToCacheInBytes: 5000000,
+            maximumFileSizeToCacheInBytes: 6000000,
         }),
 ],
     devServer: {
