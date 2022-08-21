@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import { useAppDispatch, useAppSelector } from 'hooks/Redux';
 import EndGameModal from '../EndGameModal/EndGameModal';
 import { GameBottom, StyledContainer, StyledCanvas, StyledFullScreenButton } from '../../styles';
 import { IGamePage, TBlock } from './GamePage.types';
@@ -19,6 +20,7 @@ import CatStay from '../../../../assets/images/sprites/cat-run-1.png';
 import CatRun from '../../../../assets/images/sprites/cat-run-2.png';
 import Bush1 from '../../../../assets/images/sprites/bush-1.png';
 import { drawBlocks, drawCat } from './controllers/Drawing';
+import { sendDataToLeaderboard } from 'store/actions/RatingActions';
 
 //config
 const maxLevel = 2;
@@ -34,6 +36,8 @@ let reqAnimationId: any = null;
 //
 
 const GamePage = ({ setIsReady }: IGamePage) => {
+    const dispatch = useAppDispatch();
+    const { userInfo } = useAppSelector((state) => state.user);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
     const [win, setWin] = useState(false);
@@ -199,6 +203,21 @@ const GamePage = ({ setIsReady }: IGamePage) => {
         if (win) {
             cancelAnimationFrame(reqAnimationId);
             x = 30;
+            const { avatar, displayName, id } = userInfo;
+            console.log(avatar, displayName, id);
+
+            dispatch(
+                sendDataToLeaderboard({
+                    data: {
+                        avatar,
+                        name: displayName ? displayName : 'anonymous',
+                        id,
+                        level: lvl,
+                        score: 10000003 * lvl,
+                        teamName: 'cairo',
+                    },
+                }),
+            );
             setLvl((currentState) => {
                 if (maxLevel !== currentState) {
                     return currentState + 1;

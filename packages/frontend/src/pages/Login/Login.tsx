@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, SubmitButton } from 'formik-antd';
 import { Button, Col, message, Row } from 'antd';
 import { useAppDispatch, useAppSelector } from 'hooks/Redux';
@@ -32,7 +32,7 @@ export const Login = () => {
     const onFinishFailed = (errorInfo: any) => {
         message.error(errorInfo);
     };
-    
+
     useEffect(() => {
         if (signInData?.status === EStatusLoading.SUCCESS || userInfo.id) {
             navigate(ProjectRoutes.profileDescription);
@@ -88,7 +88,7 @@ export const Login = () => {
                         <SubmitButton shape="round">Войти</SubmitButton>
                     </Col>
                     <Col>
-                        <Button type="link" onClick={()=>navigate(ProjectRoutes.signUp)}>
+                        <Button type="link" onClick={() => navigate(ProjectRoutes.signUp)}>
                             Нет аккаунта?
                         </Button>
                     </Col>

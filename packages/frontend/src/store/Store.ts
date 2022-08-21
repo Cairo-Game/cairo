@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import userReducer from './slices/UserSlice';
 import forumReducer from './slices/ForumSlice';
+import ratingRducer from './slices/RatingSlice';
 
 const RootReducer = combineReducers({
     user: userReducer,
     forum: forumReducer,
+    rating: ratingRducer,
 });
 
 export const setupStore = () => {
