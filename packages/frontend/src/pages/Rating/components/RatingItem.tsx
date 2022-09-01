@@ -8,7 +8,7 @@ export const RatingItem = ({ rating }: TRatingItem) => {
         <RatingItemContainer>
             <LeftSide>
                 <Place>{rating.place}</Place>
-                {rating.user.avatar ? <img src={rating.user.avatar} /> : <Shield width="50" />}
+                <Shield />
                 <LoginText>{rating.user.login}</LoginText>
             </LeftSide>
             <RightSide>

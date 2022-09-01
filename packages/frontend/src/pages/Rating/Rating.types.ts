@@ -1,4 +1,4 @@
-import { IUser } from "models/Entity/User";
+import { IUser } from "../../models/Entity/User";
 
 export type TRating = {
     id: string;

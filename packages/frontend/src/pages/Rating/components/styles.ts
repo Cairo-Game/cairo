@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorBlackLighten } from 'styles/modules/colors';
+import { colorBlackLighten } from '../../../styles/modules/colors';
 
 export const RatingItemContainer = styled.div`
     display: flex;

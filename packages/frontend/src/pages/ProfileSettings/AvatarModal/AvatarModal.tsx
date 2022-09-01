@@ -3,11 +3,11 @@ import {Button, Col, message, Modal, Upload} from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 import React, {useEffect, useState} from 'react';
-import 'pages/ProfileDescription/ProfileDescription.css';
+import '../../ProfileDescription/ProfileDescription.css';
 import './AvatarModal.css';
-import {useAppDispatch, useAppSelector} from "hooks/Redux";
-import {fetchUpdateUserAvatar} from "store/actions/UserActions";
-import {EStatusLoading} from "models/Api/common";
+import {useAppDispatch, useAppSelector} from "../../../hooks/Redux";
+import {fetchUpdateUserAvatar} from "../../../store/actions/UserActions";
+import {EStatusLoading} from "../../../models/Api/common";
 
 const getBase64 = (file: RcFile): Promise<string> =>
     new Promise((resolve, reject) => {

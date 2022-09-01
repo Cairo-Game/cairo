@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppRoutes } from './routes/Routes';
-import './App.css';
+import './App.scss';
 import './styles/common/common.css';
-import 'antd/dist/antd.css';
-import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
+
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 const App = () => {
+    const [hasWindow, setHasWindow] = useState(false);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setHasWindow(true);
+        }
+    }, []);
+
     return (
-        <ErrorBoundary>
-            <AppRoutes />
-        </ErrorBoundary>
+        <>
+            {hasWindow && (
+                <ErrorBoundary>
+                    <AppRoutes />
+                </ErrorBoundary>
+            )}
+        </>
     );
 };
 

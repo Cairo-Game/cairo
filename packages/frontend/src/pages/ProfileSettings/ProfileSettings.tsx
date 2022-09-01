@@ -1,18 +1,18 @@
 import {Button, Col, message, Modal, Row, Skeleton, Typography} from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'hooks/Redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import './ProfileSettings.css';
-import { dropRequestUserDataState, fetchUpdateUserProfile, fetchUserInfoData } from 'store/actions/UserActions';
+import { dropRequestUserDataState, fetchUpdateUserProfile, fetchUserInfoData } from '../../store/actions/UserActions';
 import { Formik } from 'formik';
 import { Form, Input, SubmitButton } from 'formik-antd';
-import { IUserProfileUpdateData } from 'models/Api/User.api';
-import { ProjectRoutes } from 'constants/Routs';
-import { Validation } from 'utils/Validation';
-import { EUserProfileFileds } from 'models/Common';
-import { EStatusLoading } from 'models/Api/common';
+import { IUserProfileUpdateData } from '../../models/Api/User.api';
+import { ProjectRoutes } from '../../constants/Routs';
+import { Validation } from '../../utils/Validation';
+import { EUserProfileFileds } from '../../models/Common';
+import { EStatusLoading } from '../../models/Api/common';
 import { useNavigate } from 'react-router-dom';
-import {PasswordModal} from "pages/ProfileSettings/PasswordModal/PasswordModal";
-import {AvatarModal} from "pages/ProfileSettings/AvatarModal/AvatarModal";
+import {PasswordModal} from "../../pages/ProfileSettings/PasswordModal/PasswordModal";
+import {AvatarModal} from "../../pages/ProfileSettings/AvatarModal/AvatarModal";
 
 const { Title } = Typography;
 

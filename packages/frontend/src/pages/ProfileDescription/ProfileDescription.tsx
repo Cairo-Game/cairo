@@ -1,12 +1,12 @@
 import { EditOutlined, LogoutOutlined } from '@ant-design/icons';
 import { Avatar, Card, Descriptions, message, Skeleton } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'hooks/Redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import { useNavigate } from 'react-router-dom';
 import './ProfileDescription.css';
-import {dropRequestUserDataState, fetchUserInfoData, fetchUserLogout} from 'store/actions/UserActions';
-import { ProjectRoutes } from 'constants/Routs';
-import { EStatusLoading } from 'models/Api/common';
+import {dropRequestUserDataState, fetchUserInfoData, fetchUserLogout} from '../../store/actions/UserActions';
+import { ProjectRoutes } from '../../constants/Routs';
+import { EStatusLoading } from '../../models/Api/common';
 
 const { Meta } = Card;
 

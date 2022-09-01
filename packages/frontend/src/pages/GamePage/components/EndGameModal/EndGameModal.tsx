@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Button } from 'antd';
 
-import Modal from 'components/Layouts/Modal';
+import Modal from '../../../../components/Layouts/Modal';
 import { StyledContainer, StyledTitle } from './styles';
 import { TEndGameModal } from './EndGameModal.types';
 

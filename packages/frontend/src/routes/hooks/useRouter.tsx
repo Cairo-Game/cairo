@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
-import { IRoute } from 'routes/interfaces/IRouter';
+import { IRoute } from '../interfaces/IRouter';
 
 function toRoute(router: IRoute, parentPath?: string) {
     const key = `${parentPath}-${router.path}`;

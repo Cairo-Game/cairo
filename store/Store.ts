@@ -8,8 +8,7 @@ const RootReducer = combineReducers({
     forum: forumReducer,
 });
 
-export const setupStore = (state?: any) => {
-    console.log(state ?? '');
+export const setupStore = () => {
     return configureStore({
         reducer: RootReducer,
     });

@@ -1,16 +1,23 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { hydrateRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import { setupStore } from 'store/Store';
+import { setupStore } from './store/Store';
 import registerServiceWorker from '../registerServiceWorker';
 
-const container = document.getElementById('main');
-const root = createRoot(container);
-const store = setupStore();
+const store = setupStore(window.__INITIAL_STATE__);
 
-root.render(
+declare global {
+    interface Window {
+        __INITIAL_STATE__;
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
+    }
+}
+
+const container = document.getElementById('main');
+hydrateRoot(
+    container,
     <Provider store={store}>
         <App />
     </Provider>,

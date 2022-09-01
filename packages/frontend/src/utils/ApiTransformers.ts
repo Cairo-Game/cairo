@@ -1,5 +1,5 @@
-import { IUserProfileData } from 'models/Api/User.api';
-import { IUser } from 'models/Entity/User';
+import { IUserProfileData } from '../models/Api/User.api';
+import { IUser } from '../models/Entity/User';
 
 export const transformUser = (data: IUserProfileData): IUser => {
     const mapedData: IUserProfileData = Object.fromEntries(

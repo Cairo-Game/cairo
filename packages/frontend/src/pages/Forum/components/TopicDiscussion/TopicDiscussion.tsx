@@ -1,10 +1,10 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from 'hooks/Redux';
+import { useAppSelector, useAppDispatch } from '../../../../hooks/Redux';
 import { Typography, Divider, Input, Button, List, Card, Modal } from 'antd';
-import { nanoid } from 'nanoid';
+//import { nanoid } from 'nanoid';
 
-import { addComment, addAnswerToComment, setTopic } from 'store/slices/ForumSlice';
+import { addComment, addAnswerToComment, setTopic } from '../../../../store/slices/ForumSlice';
 import { StyledWrapper } from './styles';
 
 const TopicDiscussion: FC = () => {
@@ -26,7 +26,7 @@ const TopicDiscussion: FC = () => {
 
     const handleAddComment = () => {
         if (messageValue) {
-            dispatch(addComment({ id: nanoid(6), message: messageValue, answers: [] }));
+            dispatch(addComment({ id: '2', message: messageValue, answers: [] }));
             setMessageValue('');
         }
     };

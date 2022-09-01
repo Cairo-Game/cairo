@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import { Form, Input, SubmitButton } from 'formik-antd';
 import { Button, Col, message, Row } from 'antd';
-import { useAppDispatch, useAppSelector } from 'hooks/Redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import { Formik } from 'formik';
-import { dropRequestUserDataState, fetchUserInfoData, fetchUserSignIn } from 'store/actions/UserActions';
-import { ILoginData, ISignUpData } from 'models/Api/User.api';
-import { Validation } from 'utils/Validation';
+import { dropRequestUserDataState, fetchUserInfoData, fetchUserSignIn } from '../../store/actions/UserActions';
+import { ILoginData, ISignUpData } from '../../models/Api/User.api';
+import { Validation } from '../../utils/Validation';
 import { useNavigate } from 'react-router-dom';
-import { ProjectRoutes } from 'constants/Routs';
-import { EStatusLoading } from 'models/Api/common';
+import { ProjectRoutes } from '../../constants/Routs';
+import { EStatusLoading } from '../../models/Api/common';
 
 const initialValues: ILoginData = {
     password: '',

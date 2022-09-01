@@ -1,8 +1,8 @@
-import {IUser} from "../../models/Entity/User";
+import {IUser} from "../../packages/frontend/src/models/Entity/User";
 import {createSlice} from "@reduxjs/toolkit";
-import {EStatusLoading, IRequestDataState} from "../../models/Api/common";
-import {transformUser} from "../../utils/ApiTransformers";
-import {IUserProfileUpdateData} from "../../models/Api/User.api";
+import {EStatusLoading, IRequestDataState} from "../../packages/frontend/src/models/Api/common";
+import {transformUser} from "../../packages/frontend/src/utils/ApiTransformers";
+import {IUserProfileUpdateData} from "../../packages/frontend/src/models/Api/User.api";
 
 
 export interface UserState {

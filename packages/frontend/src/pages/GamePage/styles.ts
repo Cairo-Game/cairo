@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colorPrimary } from 'styles/modules/colors';
+import { colorPrimary } from '../../styles/modules/colors';
 import Desert from '../../assets/images/desert.png';
 
 export const StyledContainer = styled.div`

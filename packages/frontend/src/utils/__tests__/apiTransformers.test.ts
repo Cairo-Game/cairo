@@ -1,4 +1,4 @@
-import { transformUser } from 'utils/ApiTransformers';
+import { transformUser } from '../../utils/ApiTransformers';
 
 describe('transformUser', () => {
     it('should return object with keys of a camelCase format', () => {
