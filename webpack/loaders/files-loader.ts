@@ -1,15 +1,15 @@
 const filesClient = {
-  test: /\.(png|jpe?g|gif)$/i,
+  test: /\.(png|jpe?g|gif|mp3)$/i,
   use: [
     {
-      loader: "file-loader",
+      loader: 'file-loader',
     },
   ],
 };
 
 const filesServer = {
-  loader: "null-loader",
-  test: /\.(png|jpe?g|gif)$/i,
+  loader: 'null-loader',
+  test: /\.(png|jpe?g|gif|mp3)$/i,
 };
 
 module.exports = { filesClient, filesServer };
