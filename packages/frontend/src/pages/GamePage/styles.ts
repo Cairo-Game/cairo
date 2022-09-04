@@ -33,6 +33,12 @@ export const StyledFullScreenButton = styled.button`
     cursor: pointer;
 `;
 
+export const StyledMusicSwitch = styled(StyledFullScreenButton)`
+    top: 62px;
+    padding: 8px 16px;
+    gap: 8px;
+`;
+
 export const StartScreenContainer = styled.div`
     display: flex;
     justify-content: center;

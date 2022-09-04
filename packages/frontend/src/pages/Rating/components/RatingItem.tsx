@@ -3,17 +3,20 @@ import { TRatingItem } from './RatingItem.types';
 import { LeftSide, LevelLabel, LoginText, Place, RatingItemContainer, RightSide, ScoreLabel } from './styles';
 import Shield from '../../../assets/svg/shield.svg';
 
-export const RatingItem = ({ rating }: TRatingItem) => {
+export const RatingItem = ({ rating, place }: TRatingItem) => {
+    const { avatar, name, level, score } = rating.data;
+    console.log(avatar, name, level, score);
+
     return (
         <RatingItemContainer>
             <LeftSide>
-                <Place>{rating.place}</Place>
-                <Shield />
-                <LoginText>{rating.user.login}</LoginText>
+                <Place>{place}</Place>
+                {avatar ? <img src={avatar} /> : <Shield width="50" />}
+                <LoginText>{name}</LoginText>
             </LeftSide>
             <RightSide>
-                <LevelLabel>{rating.level}</LevelLabel>
-                <ScoreLabel>{rating.score}</ScoreLabel>
+                <LevelLabel>{level}</LevelLabel>
+                <ScoreLabel>{score}</ScoreLabel>
             </RightSide>
         </RatingItemContainer>
     );

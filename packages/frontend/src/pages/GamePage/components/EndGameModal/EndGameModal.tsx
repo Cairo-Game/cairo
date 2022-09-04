@@ -1,11 +1,29 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button } from 'antd';
 
+import winSound from '../../../../assets/media/win-sound.mp3';
+import loseSound from '../../../../assets/media/lose-sound.mp3';
 import Modal from '../../../../components/Layouts/Modal';
 import { StyledContainer, StyledTitle } from './styles';
 import { TEndGameModal } from './EndGameModal.types';
 
-const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, isWin, text, setIsReady }) => {
+const EndGameModal: FC<TEndGameModal> = ({ closeModal, isOpen, isWin, text, setIsReady, musicOn }) => {
+    const [sound, setSound] = useState<HTMLAudioElement | null>(null);
+
+    useEffect(() => {
+        if (isWin) {
+            setSound(new Audio(winSound));
+        } else {
+            setSound(new Audio(loseSound));
+        }
+    }, [isWin]);
+
+    useEffect(() => {
+        if (sound && musicOn) {
+            sound.play();
+        }
+    }, [sound, musicOn]);
+
     const keyDownHandler = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             // window.location.reload();

@@ -1,9 +1,12 @@
-import { IUser } from "../../models/Entity/User";
+// import { IUser } from "../../models/Entity/User";
 
 export type TRating = {
-    id: string;
-    place: number;
-    user: IUser;
-    level: number;
-    score: number;
+    data: {
+        id: number;
+        name: string;
+        avatar: string;
+        level: number;
+        score: number;
+        teamName: string;
+    };
 };
