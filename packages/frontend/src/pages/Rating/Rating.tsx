@@ -12,7 +12,6 @@ export const Rating = () => {
     useEffect(() => {
         dispatch(getLeaderboard());
     }, []);
-    console.log('ratingData ', ratingData);
 
     return (
         <Container>

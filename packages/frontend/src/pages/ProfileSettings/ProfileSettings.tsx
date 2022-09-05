@@ -1,4 +1,4 @@
-import {Button, Col, message, Modal, Row, Skeleton, Typography} from 'antd';
+import { Button, Col, message, Modal, Row, Skeleton, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import './ProfileSettings.css';
@@ -11,8 +11,8 @@ import { Validation } from '../../utils/Validation';
 import { EUserProfileFileds } from '../../models/Common';
 import { EStatusLoading } from '../../models/Api/common';
 import { useNavigate } from 'react-router-dom';
-import {PasswordModal} from "../../pages/ProfileSettings/PasswordModal/PasswordModal";
-import {AvatarModal} from "../../pages/ProfileSettings/AvatarModal/AvatarModal";
+import { PasswordModal } from '../../pages/ProfileSettings/PasswordModal/PasswordModal';
+import { AvatarModal } from '../../pages/ProfileSettings/AvatarModal/AvatarModal';
 
 const { Title } = Typography;
 
@@ -83,7 +83,7 @@ export const ProfileSettings = () => {
                 enableReinitialize={true}
                 onSubmit={onSubmit}
                 validateOnBlur={true}
-                validate={validateFormValues}
+                // validate={validateFormValues}
                 autoComplete={true}
             >
                 <Form
@@ -101,24 +101,35 @@ export const ProfileSettings = () => {
                     ))}
                     <Row className="profile__settings__button__group">
                         <Col>
-                            <Button shape="round" onClick={() => setIsPasswordModalVisible(true)}>Изменить пароль</Button>
+                            <Button shape="round" onClick={() => setIsPasswordModalVisible(true)}>
+                                Изменить пароль
+                            </Button>
                         </Col>
                         <Col>
-                            <Button shape="round" onClick={() => setIsAvatarModalVisible(true)}>Изменить аватар</Button>
+                            <Button shape="round" onClick={() => setIsAvatarModalVisible(true)}>
+                                Изменить аватар
+                            </Button>
                         </Col>
                         <Col>
                             <SubmitButton shape="round">Сохранить</SubmitButton>
                         </Col>
                         <Col>
-                            <Button type="link" shape="round" onClick={() => navigate(ProjectRoutes.profileDescription)}>
+                            <Button
+                                type="link"
+                                shape="round"
+                                onClick={() => navigate(ProjectRoutes.profileDescription)}
+                            >
                                 Назад
                             </Button>
                         </Col>
                     </Row>
                 </Form>
             </Formik>
-            <PasswordModal isModalVisible={isPasswordModalVisible} onChangeVisibilityCallback={setIsPasswordModalVisible}/>
-            <AvatarModal isModalVisible={isAvatarModalVisible} onChangeVisibilityCallback={setIsAvatarModalVisible}/>
+            <PasswordModal
+                isModalVisible={isPasswordModalVisible}
+                onChangeVisibilityCallback={setIsPasswordModalVisible}
+            />
+            <AvatarModal isModalVisible={isAvatarModalVisible} onChangeVisibilityCallback={setIsAvatarModalVisible} />
         </Skeleton>
     );
 };

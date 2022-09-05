@@ -5,7 +5,6 @@ import Shield from '../../../assets/svg/shield.svg';
 
 export const RatingItem = ({ rating, place }: TRatingItem) => {
     const { avatar, name, level, score } = rating.data;
-    console.log(avatar, name, level, score);
 
     return (
         <RatingItemContainer>

@@ -71,7 +71,13 @@ const GamePage = ({ setIsReady }: IGamePage) => {
                 sound.pause();
             }
         }
-    }, [musicOn, sound]);
+
+        return () => {
+            if (sound) {
+                sound.pause();
+            }
+        };
+    }, [musicOn, sound, setMusicOn, setSound]);
 
     useEffect(() => {
         if (sound) {
@@ -243,8 +249,8 @@ const GamePage = ({ setIsReady }: IGamePage) => {
                         name: displayName ? displayName : 'anonymous',
                         id,
                         level: lvl,
-                        score: 10000003 * lvl,
-                        teamName: 'cairo',
+                        score: 100 * lvl,
+                        teamName: 'cairo2',
                     },
                 }),
             );
