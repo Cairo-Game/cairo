@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { setupStore } from './store/Store';
 import registerServiceWorker from '../registerServiceWorker';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = setupStore(window.__INITIAL_STATE__);
 
@@ -19,7 +20,9 @@ const container = document.getElementById('main');
 hydrateRoot(
     container,
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>,
 );
 

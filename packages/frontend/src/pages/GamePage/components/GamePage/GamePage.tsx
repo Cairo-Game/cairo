@@ -226,12 +226,12 @@ const GamePage = ({ setIsReady }: IGamePage) => {
 
     useEffect(() => {
         makeBlocks(lvl);
-        document.addEventListener('keydown', (e) => keyDownHandler(e, setLeftPressed, setRightPressed));
-        document.addEventListener('keyup', (e) => keyUpHandler(e, setLeftPressed, setRightPressed));
+        document?.addEventListener('keydown', (e) => keyDownHandler(e, setLeftPressed, setRightPressed));
+        document?.addEventListener('keyup', (e) => keyUpHandler(e, setLeftPressed, setRightPressed));
 
         return () => {
-            document.removeEventListener('keydown', (e) => keyDownHandler(e, setLeftPressed, setRightPressed));
-            document.removeEventListener('keyup', (e) => keyUpHandler(e, setLeftPressed, setRightPressed));
+            document?.removeEventListener('keydown', (e) => keyDownHandler(e, setLeftPressed, setRightPressed));
+            document?.removeEventListener('keyup', (e) => keyUpHandler(e, setLeftPressed, setRightPressed));
         };
     }, []);
 
@@ -274,13 +274,13 @@ const GamePage = ({ setIsReady }: IGamePage) => {
     }, [win, lose]);
 
     const toggleFullScreen = () => {
-        setIsFullScreen(!!document.fullscreenElement);
-        const body = document.body;
+        setIsFullScreen(!!document?.fullscreenElement);
+        const body = document?.body;
 
-        if (!document.fullscreenElement) {
+        if (!document?.fullscreenElement) {
             body.requestFullscreen();
-        } else if (document.exitFullscreen) {
-            document.exitFullscreen();
+        } else if (document?.exitFullscreen) {
+            document?.exitFullscreen();
         }
     };
 

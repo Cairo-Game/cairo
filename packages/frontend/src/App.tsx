@@ -6,21 +6,10 @@ import './styles/common/common.css';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 const App = () => {
-    const [hasWindow, setHasWindow] = useState(false);
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setHasWindow(true);
-        }
-    }, []);
-
     return (
-        <>
-            {hasWindow && (
-                <ErrorBoundary>
-                    <AppRoutes />
-                </ErrorBoundary>
-            )}
-        </>
+        <ErrorBoundary>
+            <AppRoutes />
+        </ErrorBoundary>
     );
 };
 
