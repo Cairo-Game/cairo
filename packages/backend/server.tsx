@@ -7,6 +7,7 @@ import { StaticRouter } from "react-router-dom/server";
 import { Provider as ReduxProvider } from "react-redux";
 import App from "../frontend/src/App";
 import { setupStore } from "../../store/Store";
+import { connectToDb } from "./connect-db";
 
 const app = express();
 
@@ -44,5 +45,7 @@ app.get("/*", (req, res) => {
 
   res.send(html);
 });
+
+connectToDb();
 
 app.listen(4000);
