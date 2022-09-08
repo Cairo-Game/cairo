@@ -2,11 +2,11 @@ import {Button, Col, message, Modal, Row} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {Form, Input, SubmitButton} from "formik-antd";
 import {Formik} from "formik";
-import {EPasswordFields, IPasswordForm, IUserProfileUpdateData} from "models/Api/User.api";
-import {dropRequestUserDataState, fetchUpdateUserPassword, fetchUpdateUserProfile} from "store/actions/UserActions";
-import {useAppDispatch, useAppSelector} from "hooks/Redux";
-import {EStatusLoading} from "models/Api/common";
-import 'pages/ProfileDescription/ProfileDescription.css';
+import {EPasswordFields, IPasswordForm, IUserProfileUpdateData} from "../../../models/Api/User.api";
+import {dropRequestUserDataState, fetchUpdateUserPassword, fetchUpdateUserProfile} from "../../../store/actions/UserActions";
+import {useAppDispatch, useAppSelector} from "../../../hooks/Redux";
+import {EStatusLoading} from "../../../models/Api/common";
+import '../../ProfileDescription/ProfileDescription.css';
 
 const initialValues:IPasswordForm = {
     oldPassword: '',

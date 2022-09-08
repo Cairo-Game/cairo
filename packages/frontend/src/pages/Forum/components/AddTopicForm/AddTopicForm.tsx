@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import { Button, Input, Modal, Row } from 'antd';
-import { nanoid } from 'nanoid';
-import { useAppDispatch } from 'hooks/Redux';
+//import { nanoid } from 'nanoid';
+import { useAppDispatch } from '../../../../hooks/Redux';
 
-import { addTopic } from 'store/slices/ForumSlice';
+import { addTopic } from '../../../../store/slices/ForumSlice';
 import { TAddTopicFormProps } from './types';
 
 const AddTopicForm: FC<TAddTopicFormProps> = ({ isOpen, closeForm }) => {
@@ -14,7 +14,7 @@ const AddTopicForm: FC<TAddTopicFormProps> = ({ isOpen, closeForm }) => {
 
     const onOk = () => {
         if (!titleValue) return;
-        dispatch(addTopic({ id: nanoid(6), title: titleValue, message: messageValue, comments: [] }));
+        dispatch(addTopic({ id: '1', title: titleValue, message: messageValue, comments: [] }));
         setTitleValue('');
         setMessageValue('');
         closeForm();

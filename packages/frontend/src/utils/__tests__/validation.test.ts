@@ -1,4 +1,4 @@
-import { Validation } from 'utils/Validation';
+import { Validation } from '../../utils/Validation';
 
 describe('Validation', () => {
     it('should return Некорректное значение', () => {

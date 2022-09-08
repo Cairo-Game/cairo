@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { SoundOutlined } from '@ant-design/icons';
 
+import { useAppDispatch, useAppSelector } from '../../../../hooks/Redux';
 import EndGameModal from '../EndGameModal/EndGameModal';
-import { GameBottom, StyledContainer, StyledCanvas, StyledFullScreenButton } from '../../styles';
+import { GameBottom, StyledContainer, StyledCanvas, StyledFullScreenButton, StyledMusicSwitch } from '../../styles';
 import { IGamePage, TBlock } from './GamePage.types';
 import {
     jump,
@@ -18,7 +20,9 @@ import { checkWin } from './controllers/CheckWin';
 import CatStay from '../../../../assets/images/sprites/cat-run-1.png';
 import CatRun from '../../../../assets/images/sprites/cat-run-2.png';
 import Bush1 from '../../../../assets/images/sprites/bush-1.png';
+import backgroundMusic from '../../../../assets/media/background-music.mp3';
 import { drawBlocks, drawCat } from './controllers/Drawing';
+import { sendDataToLeaderboard } from '../../../../store/actions/RatingActions';
 
 //config
 const maxLevel = 2;
@@ -34,6 +38,8 @@ let reqAnimationId: any = null;
 //
 
 const GamePage = ({ setIsReady }: IGamePage) => {
+    const dispatch = useAppDispatch();
+    const { userInfo } = useAppSelector((state) => state.user);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
     const [win, setWin] = useState(false);
@@ -49,6 +55,40 @@ const GamePage = ({ setIsReady }: IGamePage) => {
 
     const [chapter, setChapter] = useState(new Image());
     const [spritesBlocks, setSpritesBlocks] = useState(new Image());
+
+    const [sound, setSound] = useState<HTMLAudioElement | null>(null);
+    const [musicOn, setMusicOn] = useState(true);
+
+    useEffect(() => {
+        setSound(new Audio(backgroundMusic));
+    }, []);
+
+    useEffect(() => {
+        if (sound) {
+            if (musicOn) {
+                sound.play();
+            } else {
+                sound.pause();
+            }
+        }
+
+        return () => {
+            if (sound) {
+                sound.pause();
+            }
+        };
+    }, [musicOn, sound, setMusicOn, setSound]);
+
+    useEffect(() => {
+        if (sound) {
+            if (win || lose) {
+                sound.pause();
+                sound.currentTime = 0;
+            } else {
+                sound.play();
+            }
+        }
+    }, [win, lose, sound]);
 
     const makeFirstLvl = () => {
         let blockX = x + 100;
@@ -186,12 +226,12 @@ const GamePage = ({ setIsReady }: IGamePage) => {
 
     useEffect(() => {
         makeBlocks(lvl);
-        document.addEventListener('keydown', (e) => keyDownHandler(e, setLeftPressed, setRightPressed));
-        document.addEventListener('keyup', (e) => keyUpHandler(e, setLeftPressed, setRightPressed));
+        document?.addEventListener('keydown', (e) => keyDownHandler(e, setLeftPressed, setRightPressed));
+        document?.addEventListener('keyup', (e) => keyUpHandler(e, setLeftPressed, setRightPressed));
 
         return () => {
-            document.removeEventListener('keydown', (e) => keyDownHandler(e, setLeftPressed, setRightPressed));
-            document.removeEventListener('keyup', (e) => keyUpHandler(e, setLeftPressed, setRightPressed));
+            document?.removeEventListener('keydown', (e) => keyDownHandler(e, setLeftPressed, setRightPressed));
+            document?.removeEventListener('keyup', (e) => keyUpHandler(e, setLeftPressed, setRightPressed));
         };
     }, []);
 
@@ -199,6 +239,21 @@ const GamePage = ({ setIsReady }: IGamePage) => {
         if (win) {
             cancelAnimationFrame(reqAnimationId);
             x = 30;
+            const { avatar, displayName, id } = userInfo;
+            console.log(avatar, displayName, id);
+
+            dispatch(
+                sendDataToLeaderboard({
+                    data: {
+                        avatar,
+                        name: displayName ? displayName : 'anonymous',
+                        id,
+                        level: lvl,
+                        score: 100 * lvl,
+                        teamName: 'cairo2',
+                    },
+                }),
+            );
             setLvl((currentState) => {
                 if (maxLevel !== currentState) {
                     return currentState + 1;
@@ -219,13 +274,13 @@ const GamePage = ({ setIsReady }: IGamePage) => {
     }, [win, lose]);
 
     const toggleFullScreen = () => {
-        setIsFullScreen(!!document.fullscreenElement);
-        const body = document.body;
+        setIsFullScreen(!!document?.fullscreenElement);
+        const body = document?.body;
 
-        if (!document.fullscreenElement) {
+        if (!document?.fullscreenElement) {
             body.requestFullscreen();
-        } else if (document.exitFullscreen) {
-            document.exitFullscreen();
+        } else if (document?.exitFullscreen) {
+            document?.exitFullscreen();
         }
     };
 
@@ -238,6 +293,7 @@ const GamePage = ({ setIsReady }: IGamePage) => {
                     isWin={win}
                     closeModal={() => setWin(false)}
                     setIsReady={setIsReady}
+                    musicOn={musicOn}
                 />
             )}
             {lose && (
@@ -247,6 +303,7 @@ const GamePage = ({ setIsReady }: IGamePage) => {
                     isWin={win}
                     closeModal={() => setLose(false)}
                     setIsReady={setIsReady}
+                    musicOn={musicOn}
                 />
             )}
             <StyledCanvas ref={canvasRef} />
@@ -254,6 +311,9 @@ const GamePage = ({ setIsReady }: IGamePage) => {
             <StyledFullScreenButton type="button" onClick={toggleFullScreen}>
                 {isFullScreen ? 'Полноэкранный режим' : 'Выйти из полноэкранного режима'}
             </StyledFullScreenButton>
+            <StyledMusicSwitch onClick={() => setMusicOn(!musicOn)}>
+                <SoundOutlined /> {musicOn ? 'Вкл' : 'Выкл'}
+            </StyledMusicSwitch>
         </StyledContainer>
     );
 };

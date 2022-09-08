@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colorPrimary } from 'styles/modules/colors';
+import { colorPrimary } from '../../styles/modules/colors';
 import Desert from '../../assets/images/desert.png';
 
 export const StyledContainer = styled.div`
@@ -31,6 +31,12 @@ export const StyledFullScreenButton = styled.button`
     color: white;
     border: none;
     cursor: pointer;
+`;
+
+export const StyledMusicSwitch = styled(StyledFullScreenButton)`
+    top: 62px;
+    padding: 8px 16px;
+    gap: 8px;
 `;
 
 export const StartScreenContainer = styled.div`

@@ -4,4 +4,5 @@ export type TEndGameModal = {
     closeModal: () => void;
     text: string;
     setIsReady: React.Dispatch<React.SetStateAction<boolean>>;
+    musicOn: boolean;
 };

@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Form, Input, SubmitButton, ResetButton } from 'formik-antd';
 import { message, Typography, Button, Row, Col } from 'antd';
-import { useAppDispatch, useAppSelector } from 'hooks/Redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/Redux';
 import { Formik } from 'formik';
-import { dropRequestUserDataState, fetchUserSignUp } from 'store/actions/UserActions';
-import { ISignUpData } from 'models/Api/User.api';
-import { Validation } from 'utils/Validation';
+import { dropRequestUserDataState, fetchUserSignUp } from '../../store/actions/UserActions';
+import { ISignUpData } from '../../models/Api/User.api';
+import { Validation } from '../../utils/Validation';
 import { useNavigate } from 'react-router-dom';
-import { ProjectRoutes } from 'constants/Routs';
-import { EStatusLoading } from 'models/Api/common';
-import 'pages/SignUp/SignUp.css';
+import { ProjectRoutes } from '../../constants/Routs';
+import { EStatusLoading } from '../../models/Api/common';
+import './SignUp.css';
 
 const { Title } = Typography;
 
@@ -107,7 +107,7 @@ export const SignUp = () => {
                             </SubmitButton>
                         </Col>
                         <Col>
-                            <Button type="link" onClick={()=>navigate(ProjectRoutes.login)} block>
+                            <Button type="link" onClick={() => navigate(ProjectRoutes.login)} block>
                                 Войти
                             </Button>
                         </Col>

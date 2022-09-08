@@ -8,9 +8,7 @@ export const AppRoutes: () => JSX.Element = () => {
 
     return (
         <React.Suspense fallback={<p>Загрузка...</p>}>
-            <BrowserRouter>
-                <Routes>{appRoutes}</Routes>
-            </BrowserRouter>
+            <Routes>{appRoutes}</Routes>
         </React.Suspense>
     );
 };

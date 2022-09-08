@@ -1,18 +1,28 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { hydrateRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import { setupStore } from 'store/Store';
+import { setupStore } from './store/Store';
 import registerServiceWorker from '../registerServiceWorker';
+import { BrowserRouter } from 'react-router-dom';
+
+const store = setupStore(window.__INITIAL_STATE__);
+
+declare global {
+    interface Window {
+        __INITIAL_STATE__;
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
+    }
+}
 
 const container = document.getElementById('main');
-const root = createRoot(container);
-const store = setupStore();
-
-root.render(
+hydrateRoot(
+    container,
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>,
 );
 

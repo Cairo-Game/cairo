@@ -1,6 +1,6 @@
 import { Layout, Menu } from 'antd';
 import React from 'react';
-import { MenuItems } from 'constants/MenuItems';
+import { MenuItems } from '../../constants/MenuItems';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Content, GameLayoutContainer } from './GameLayout.styles';
 

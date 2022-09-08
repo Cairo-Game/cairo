@@ -1,7 +1,7 @@
-import axios from "services/BaseService";
-import {AppDispatch} from "store/Store";
-import {userSlice} from "store/slices/UserSlice";
-import {ILoginData, IPasswordForm, ISignUpData, IUserProfileUpdateData} from "models/Api/User.api";
+import axios from "../../services/BaseService";
+import {AppDispatch} from "../../store/Store";
+import {userSlice} from "../../store/slices/UserSlice";
+import {ILoginData, IPasswordForm, ISignUpData, IUserProfileUpdateData} from "../../models/Api/User.api";
 import {UploadFile} from "antd/es/upload/interface";
 import {RcFile} from "antd/es/upload";
 

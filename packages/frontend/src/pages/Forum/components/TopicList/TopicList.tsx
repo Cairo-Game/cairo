@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, List, Row } from 'antd';
-import { useAppDispatch, useAppSelector } from 'hooks/Redux';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/Redux';
 
-import { setTopic, removeTopic } from 'store/slices/ForumSlice';
+import { setTopic, removeTopic } from '../../../../store/slices/ForumSlice';
 import { TTopicListProps } from './types';
 import { StyledButton, StyledListHeader } from './styles';
 

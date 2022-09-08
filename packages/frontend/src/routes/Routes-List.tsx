@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProjectRoutes } from 'constants/Routs';
+import { ProjectRoutes } from '../constants/Routs';
 import { AuthLayout } from '../layouts/AuthLayout/AuthLayout';
 import { Login } from '../pages/Login/Login';
 import { SignUp } from '../pages/SignUp/SignUp';
@@ -9,8 +9,8 @@ import { ProfileDescription } from '../pages/ProfileDescription/ProfileDescripti
 import { ProfileSettings } from '../pages/ProfileSettings/ProfileSettings';
 import { StartScreen } from '../pages/GamePage/StartScreen';
 import { Rating } from '../pages/Rating/Rating';
-import Forum from 'pages/Forum';
-import TopicDiscussion from 'pages/Forum/components/TopicDiscussion';
+import Forum from '../pages/Forum';
+import TopicDiscussion from '../pages/Forum/components/TopicDiscussion';
 import { GameLayout } from '../layouts/GameLayout/GameLayout';
 
 export const routes: IRoute[] = [
