@@ -1,21 +1,21 @@
 version: '3'
 services:
-  main-app:
-    build:
-      context: .
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: postgres://russiancmo:3tr879m306@postgres:5432/cairo
-      NODE_ENV: development
-      PORT: 4000
-    ports:
-      - "4000:4000"
-    restart: always
-    networks:
-      - awesome
+  # main-app:
+  #   build:
+  #     context: .
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     DATABASE_URL: postgres://russiancmo:3tr879m306@postgres:5432/cairo
+  #     NODE_ENV: development
+  #     PORT: 4000
+  #   ports:
+  #     - "4000:4000"
+  #   restart: always
+  #   networks:
+  #     - awesome
   postgres:
-    container_name: cairo_postgres # Можно и не указывать, тогда будет взято за основу название сервиса: `postgres`
+    container_name: cairo_postgres
     image: postgres:14
     ports:
       - "5432:5432"
@@ -30,6 +30,26 @@ services:
       POSTGRES_DB: cairo
     networks:
       - awesome
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: russiancmo@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 3tr879m306
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - awesome
+
+volumes:
+  pgadmin-data:
+
 
 networks:
   awesome:

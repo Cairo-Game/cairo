@@ -7,9 +7,27 @@ import { StaticRouter } from "react-router-dom/server";
 import { Provider as ReduxProvider } from "react-redux";
 import App from "../frontend/src/App";
 import { setupStore } from "../../store/Store";
-import { connectToDb } from "./connect-db";
+import { sequelize } from "./connect-db";
+import { queryParser } from "express-query-parser";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import router from "./config/router";
+import { modelsReturn } from "./helpers/models-return";
+import { ThemeService } from "./controllers/themeService";
 
 const app = express();
+
+app
+  .disable("x-powered-by")
+  .enable("trust proxy")
+  .set("query parser", queryParser)
+  .use(cookieParser())
+  //.use(logger)
+  .use(router)
+  .use(bodyParser.urlencoded({ extended: true }))
+  .use(bodyParser.json())
+  .use(bodyParser.raw());
+//.use(notFound);
 
 app.use("/", express.static(path.resolve(__dirname, "../../dist")));
 
@@ -46,6 +64,12 @@ app.get("/*", (req, res) => {
   res.send(html);
 });
 
-connectToDb();
+app.use("/v1", router);
 
-app.listen(4000);
+(async function () {
+  sequelize.addModels(modelsReturn());
+  await sequelize.sync({ force: true });
+  ThemeService.create({title: 'Светлая тема', description: 'Светлая тема для дневного времени суток'});
+  ThemeService.create({title: 'Темная тема', description: 'Темная тема для вечернего времени суток'})
+  app.listen(4000);
+})();
