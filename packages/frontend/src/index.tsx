@@ -6,6 +6,8 @@ import App from './App';
 import { setupStore } from './store/Store';
 import registerServiceWorker from '../registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from './services/ThemeProvider';
+import { UserProvider } from './services/UserProvider';
 
 const store = setupStore(window.__INITIAL_STATE__);
 
@@ -19,11 +21,15 @@ declare global {
 const container = document.getElementById('main');
 hydrateRoot(
     container,
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>,
+    <UserProvider>
+        <ThemeProvider>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </Provider>
+        </ThemeProvider>
+    </UserProvider>,
 );
 
 registerServiceWorker();

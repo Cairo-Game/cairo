@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { ProjectRoutes } from '../../constants/Routs';
 import { EStatusLoading } from '../../models/Api/common';
 import './SignUp.css';
+import { CreateUser } from '../../api/User';
 
 const { Title } = Typography;
 
@@ -28,10 +29,18 @@ export const SignUp = () => {
     const signUpData = useAppSelector((state) => state.user.requestData?.signUpData);
 
     const onSubmit = (values: ISignUpData, actions) => {
+        CreateUser({
+            firstName: values.first_name,
+            secondName: values.second_name,
+            login: values.login,
+            email: values.email,
+            phone: values.phone,
+        });
         dispatch(fetchUserSignUp(values)).then(() => {
             actions.setSubmitting(false);
         });
     };
+
     const onFinishFailed = (errorInfo: any) => {
         message.error(errorInfo);
     };
