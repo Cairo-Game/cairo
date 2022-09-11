@@ -1,5 +1,6 @@
 import {
   AllowNull,
+  AutoIncrement,
   Column,
   DataType,
   Model,
@@ -13,10 +14,12 @@ import {
   tableName: "user",
 })
 export class User extends Model<User> {
+  @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
   id: number;
 
+  @AllowNull(true)
   @Column(DataType.STRING)
   avatar: string;
 
@@ -27,10 +30,6 @@ export class User extends Model<User> {
   @AllowNull(false)
   @Column(DataType.STRING)
   secondName: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  displayName: string;
 
   @AllowNull(false)
   @Column(DataType.STRING)

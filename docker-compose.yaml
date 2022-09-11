@@ -1,19 +1,19 @@
 version: '3'
 services:
-  # main-app:
-  #   build:
-  #     context: .
-  #   depends_on:
-  #     - postgres
-  #   environment:
-  #     DATABASE_URL: postgres://russiancmo:3tr879m306@postgres:5432/cairo
-  #     NODE_ENV: development
-  #     PORT: 4000
-  #   ports:
-  #     - "4000:4000"
-  #   restart: always
-  #   networks:
-  #     - awesome
+  main-app:
+    build:
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://russiancmo:3tr879m306@postgres:5432/cairo
+      NODE_ENV: development
+      PORT: 4000
+    ports:
+      - "4000:4000"
+    restart: always
+    networks:
+      - awesome
   postgres:
     container_name: cairo_postgres
     image: postgres:14

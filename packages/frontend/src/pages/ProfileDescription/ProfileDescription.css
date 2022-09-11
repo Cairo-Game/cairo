@@ -1,13 +1,22 @@
-.description__card__content{
+.description__card__content {
     padding-top: 40px !important;
 }
-.description__card__info__content{
+.description__card__info__content {
     padding-left: 40px !important;
     margin-top: 40px;
     width: 500px !important;
 }
 
-.description__avatar{
+.description__avatar {
     min-height: 150px !important;
     min-width: 150px !important;
+}
+
+.changeThemeButton {
+    padding: 5px 15px;
+    font-size: 16px;
+    background-color: #fff9d2;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
 }
