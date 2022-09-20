@@ -2,6 +2,8 @@ import React from 'react';
 import { IErrorBoundary } from './ErrorBoundary.types';
 
 class ErrorBoundary extends React.Component<IErrorBoundary, any> {
+    public state;
+
     constructor(props) {
         super(props);
         this.state = { hasError: false };

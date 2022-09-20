@@ -12,7 +12,7 @@ export const MainLayout = () => {
     const theme = useContext(ThemeContext);
     return (
         <Layout className="main__layout">
-            <Header className={`header ${theme.state.darkMode && 'header_dark'}`}>
+            <Header className={`header ${theme?.state?.darkMode && 'header_dark'}`}>
                 <div className="logo" />
                 <Menu theme="light" mode="horizontal" defaultSelectedKeys={[location.pathname]} items={MenuItems} />
             </Header>

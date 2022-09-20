@@ -1,10 +1,10 @@
-import { Router } from "express";
-import { ThemeAPI } from "../controllers/themeApi";
+import { Router } from 'express';
+import { ThemeAPI } from '../controllers/themeApi';
 
 export const themesRoutes = (router: Router) => {
-  const themesRouter: Router = Router();
+    const themesRouter: Router = Router();
 
-  themesRouter.post("/", ThemeAPI.create).get("/", ThemeAPI.find);
+    themesRouter.post('/', ThemeAPI.create).get('/', ThemeAPI.find);
 
-  router.use("/theme", themesRouter);
+    router.use('/theme', themesRouter);
 };

@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { themesRoutes } from "../routers/theme.routes";
-import { userRoutes } from "../routers/user.routes";
-import { userThemeRoutes } from "../routers/userTheme.routes";
+import { Router } from 'express';
+import { themesRoutes } from '../routers/theme.routes';
+import { userRoutes } from '../routers/user.routes';
+import { userThemeRoutes } from '../routers/userTheme.routes';
 
 const router: Router = Router();
 

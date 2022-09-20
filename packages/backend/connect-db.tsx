@@ -1,12 +1,13 @@
-import { Sequelize, SequelizeOptions } from "sequelize-typescript";
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import { config } from './config/env';
 
 const sequelizeOptions: SequelizeOptions = {
-  host: "localhost",
-  port: 5432,
-  username: "russiancmo",
-  password: "3tr879m306",
-  database: "cairo",
-  dialect: "postgres",
+    host: config.db.host,
+    port: config.db.port,
+    username: config.db.username,
+    password: config.db.password,
+    database: config.db.database,
+    dialect: 'postgres',
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);
