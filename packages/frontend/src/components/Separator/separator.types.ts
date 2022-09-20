@@ -1,3 +1,3 @@
 export type TSeparator = {
-  color: string;
+    color: string;
 };

@@ -5,16 +5,16 @@ import forumReducer from './slices/ForumSlice';
 import ratingRducer from './slices/RatingSlice';
 
 const RootReducer = combineReducers({
-  user: userReducer,
-  forum: forumReducer,
-  rating: ratingRducer,
+    user: userReducer,
+    forum: forumReducer,
+    rating: ratingRducer,
 });
 
 export const setupStore = (state?: any) => {
-  console.log(state ?? '');
-  return configureStore({
-    reducer: RootReducer,
-  });
+    console.log(state ?? '');
+    return configureStore({
+        reducer: RootReducer,
+    });
 };
 
 export type RootState = ReturnType<typeof RootReducer>;

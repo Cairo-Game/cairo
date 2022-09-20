@@ -26,7 +26,7 @@ export const ProfileDescription = () => {
 
     const [isLoading, setIsLoading] = useState(null);
 
-    const darkTheme = theme.state.darkMode;
+    const darkTheme = theme?.state?.darkMode;
 
     useEffect(() => {
         !userData.id && dispatch(fetchUserInfoData());
@@ -48,7 +48,7 @@ export const ProfileDescription = () => {
 
     useEffect(() => {
         GetUser(userData.login).then((user) => {
-            userCustom.dispatch({id: user.data.id})
+            userCustom.dispatch({ id: user.data.id });
             getUserTheme(user.data.id).then((item) => theme.dispatch({ type: item.data.theme }));
         });
     }, [userData.login]);

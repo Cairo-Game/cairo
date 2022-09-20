@@ -1,10 +1,10 @@
-import { Router } from "express";
-import { UserAPI } from "../controllers/userApi";
+import { Router } from 'express';
+import { UserAPI } from '../controllers/userApi';
 
 export const userRoutes = (router: Router) => {
-  const userRouter: Router = Router();
+    const userRouter: Router = Router();
 
-  userRouter.post("/", UserAPI.create).get("/", UserAPI.findUser);
+    userRouter.post('/', UserAPI.create).get('/', UserAPI.findUser);
 
-  router.use("/user", userRouter);
+    router.use('/user', userRouter);
 };

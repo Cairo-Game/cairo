@@ -1,20 +1,20 @@
 import { PlusOutlined } from '@ant-design/icons';
-import {Button, Col, message, Modal, Upload} from 'antd';
+import { Button, Col, message, Modal, Upload } from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../ProfileDescription/ProfileDescription.css';
 import './AvatarModal.css';
-import {useAppDispatch, useAppSelector} from "../../../hooks/Redux";
-import {fetchUpdateUserAvatar} from "../../../store/actions/UserActions";
-import {EStatusLoading} from "../../../models/Api/common";
+import { useAppDispatch, useAppSelector } from '../../../hooks/Redux';
+import { fetchUpdateUserAvatar } from '../../../store/actions/UserActions';
+import { EStatusLoading } from '../../../models/Api/common';
 
 const getBase64 = (file: RcFile): Promise<string> =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result as string);
-        reader.onerror = error => reject(error);
+        reader.onerror = (error) => reject(error);
     });
 
 export const AvatarModal = (props) => {
@@ -25,20 +25,18 @@ export const AvatarModal = (props) => {
     const dispatch = useAppDispatch();
     const updateProfileAvatarData = useAppSelector((state) => state.user.requestData?.updateProfileAvatar);
 
-    const {isModalVisible, onChangeVisibilityCallback} = props;
+    const { isModalVisible, onChangeVisibilityCallback } = props;
 
     const [isVisible, setIsVisible] = useState(isModalVisible);
-
 
     const handleCancel = () => setPreviewVisible(false);
 
     useEffect(() => {
         if (updateProfileAvatarData.status === EStatusLoading.ERROR) {
             updateProfileAvatarData.errorMessage && message.error(updateProfileAvatarData.errorMessage, 2);
-        }
-        else if (updateProfileAvatarData.status === EStatusLoading.SUCCESS) {
-            message.info('Аватар успешно обновлен',2)
-            setIsVisible(false)
+        } else if (updateProfileAvatarData.status === EStatusLoading.SUCCESS) {
+            message.info('Аватар успешно обновлен', 2);
+            setIsVisible(false);
         }
     }, [updateProfileAvatarData.status]);
 
@@ -51,8 +49,7 @@ export const AvatarModal = (props) => {
         setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
     };
 
-    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-        setFileList(newFileList);
+    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => setFileList(newFileList);
 
     const uploadButton = (
         <div>
@@ -62,24 +59,25 @@ export const AvatarModal = (props) => {
     );
 
     useEffect(() => {
-        onChangeVisibilityCallback(isVisible)
+        onChangeVisibilityCallback(isVisible);
     }, [isVisible]);
 
     useEffect(() => {
-        setIsVisible(isModalVisible)
+        setIsVisible(isModalVisible);
     }, [props]);
 
-
     const handelClickSubmit = () => {
-        dispatch(fetchUpdateUserAvatar(fileList[0]?.originFileObj))
+        dispatch(fetchUpdateUserAvatar(fileList[0]?.originFileObj));
     };
 
     return (
-        <Modal title="Обновление аватара" visible={isVisible} onCancel={() => setIsVisible(false)}
-               destroyOnClose={true} footer={null}  bodyStyle={{display:"flex", flexDirection: "column",
-            alignItems: "center",
-            width: "800px !important"
-        }}
+        <Modal
+            title="Обновление аватара"
+            visible={isVisible}
+            onCancel={() => setIsVisible(false)}
+            destroyOnClose={true}
+            footer={null}
+            bodyStyle={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '800px !important' }}
         >
             <Upload
                 listType="picture-card"
@@ -87,7 +85,9 @@ export const AvatarModal = (props) => {
                 onPreview={handlePreview}
                 onChange={handleChange}
                 maxCount={1}
-                beforeUpload={() => {return false}}
+                beforeUpload={() => {
+                    return false;
+                }}
                 name="avatar"
             >
                 {fileList.length >= 8 ? null : uploadButton}
@@ -96,7 +96,9 @@ export const AvatarModal = (props) => {
                 <img alt="example" style={{ width: '100%' }} src={previewImage} />
             </Modal>
             <Col>
-                <Button shape="round" onClick={handelClickSubmit}>Загрузить</Button>
+                <Button shape="round" onClick={handelClickSubmit}>
+                    Загрузить
+                </Button>
             </Col>
         </Modal>
     );
