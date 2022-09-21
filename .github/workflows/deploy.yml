@@ -29,6 +29,6 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        source: "README.md"
+        source: "."
         target: ${{ secrets.TARGET }}
         rm: true
