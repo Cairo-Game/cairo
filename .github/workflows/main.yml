@@ -45,4 +45,5 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        script: docker rm -f $(docker ps -a -q); docker-compose -f /opt/cairo/docker-compose.yml up
+        script: cd /opt/cairo && ./init.sh
+        #script: docker rm -f $(docker ps -a -q); docker-compose -f /opt/cairo/docker-compose.yml up
