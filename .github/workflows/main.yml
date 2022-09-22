@@ -45,4 +45,4 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        script: docker ps -aq | xargs docker stop | xargs docker rm
+        script: docker stop $ (docker ps -a -q); docker rm $ (docker ps -a -q)
