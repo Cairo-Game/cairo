@@ -36,7 +36,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        source: "./nginx,./packages,./store,./webpack,./workflows,./www,package.json,docker-compose.yaml,init.sh"
+        source: "./nginx,./packages,./store,./webpack,./workflows,./www,package.json,docker-compose.yaml"
         target: ${{ secrets.TARGET }}
         
     - name: exec
