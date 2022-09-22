@@ -6,8 +6,7 @@
     "scripts": {
         "start": "node dist/server/server.js",
         "start:webpack": "webpack --mode=development",
-        "dev": "npm run clean && npm run start:webpack && concurrently \"webpack --watch\" \"nodemon dist/server/server.js\"",
-        "prebuild": "npm run clean",
+        "dev": "npm run start:webpack && concurrently \"webpack --watch\" \"nodemon dist/server/server.js\"",
         "build": "webpack --progress",
         "clean": "rimraf dist",
         "format": "prettier --write ."
