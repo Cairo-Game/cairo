@@ -1,1 +1,1 @@
-docker-compose restart -d
+docker rm -f $(docker ps -a -q) && docker-compose up
