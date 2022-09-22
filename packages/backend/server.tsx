@@ -24,23 +24,6 @@ app.disable('x-powered-by')
     //.set("query parser", queryParser)
     .use(cookieParser())
     //.use(logger)
-    .use(
-        helmet({
-            contentSecurityPolicy: {
-                directives: {
-                    defaultSrc: ["'self'"],
-                    mediaSrc: ["'self'"],
-                    fontSrc: ["'self'"],
-                    imgSrc: ["'self'"],
-                    scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-                    styleSrc: ["'self'", "'unsafe-inline'"],
-                    frameSrc: ["'self'"],
-                    connectSrc: ["'self'", 'https://ya-praktikum.tech/api/'],
-                    childSrc: ["'self'"],
-                },
-            },
-        }),
-    )
     .use(router)
     .use(bodyParser.urlencoded({ extended: true }))
     .use(bodyParser.json())
