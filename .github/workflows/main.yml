@@ -1,4 +1,5 @@
 # This is a basic workflow to help you get started with Actions
+#script: docker rm -f $(docker ps -a -q); docker-compose -f /opt/cairo/docker-compose.yml up
 
 name: CI
 
@@ -46,4 +47,3 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: cd opt/cairo && ./init.sh
-        #script: docker rm -f $(docker ps -a -q); docker-compose -f /opt/cairo/docker-compose.yml up
