@@ -46,4 +46,4 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        script: cd opt/cairo && ./init.sh
+        script: cd opt/cairo && ./init.sh && return true
