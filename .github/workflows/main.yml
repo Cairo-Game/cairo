@@ -38,3 +38,11 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         source: "./nginx,./packages,./store,./webpack,./workflows,./www,package.json,docker-compose.yaml"
         target: ${{ secrets.TARGET }}
+        
+    - name: exec
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        script: docker ps -aq | xargs docker stop | xargs docker rm
