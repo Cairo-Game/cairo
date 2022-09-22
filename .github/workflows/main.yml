@@ -38,3 +38,12 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         source: "./nginx,./packages,./store,./webpack,./workflows,./www,package.json,docker-compose.yaml"
         target: ${{ secrets.TARGET }}
+        
+    - name: exec
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        script: cd /opt/cairo && ./init.sh
+        #script: docker rm -f $(docker ps -a -q); docker-compose -f /opt/cairo/docker-compose.yml up
