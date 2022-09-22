@@ -36,7 +36,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        source: "./nginx,./packages,./store,./webpack,./workflows,./www,package.json,docker-compose.yaml"
+        source: "./nginx,./packages,./store,./webpack,./workflows,./www,package.json,docker-compose.yaml,init.sh"
         target: ${{ secrets.TARGET }}
         
     - name: exec
@@ -45,5 +45,5 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
-        script: cd /opt/cairo && ./init.sh
+        script: cd opt/cairo && ./init.sh
         #script: docker rm -f $(docker ps -a -q); docker-compose -f /opt/cairo/docker-compose.yml up
