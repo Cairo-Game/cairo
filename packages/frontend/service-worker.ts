@@ -2,7 +2,7 @@ const CACHE_NAME = 'cairo-cache-v1';
 
 const URLS = ['./index.html'];
 
-console.log('tut test')
+console.log('tut test!')
 
 self.addEventListener('install', (event: any) => {
     event.waitUntil(
