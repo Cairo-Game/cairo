@@ -78,7 +78,7 @@ export const Login = () => {
                 initialValues={{ remember: true }}
                 onFinishFailed={onFinishFailed}
             >
-                <Form.Item name="login" label="Логин1">
+                <Form.Item name="login" label="Логин">
                     <Input name="login" />
                 </Form.Item>
                 <Form.Item name="password" label="Пароль">
@@ -86,7 +86,7 @@ export const Login = () => {
                 </Form.Item>
                 <Row className="button__group">
                     <Col>
-                        <SubmitButton shape="round">Войти1</SubmitButton>
+                        <SubmitButton shape="round">Войти</SubmitButton>
                     </Col>
                     <Col>
                         <Button type="link" onClick={() => navigate(ProjectRoutes.signUp)}>
