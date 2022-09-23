@@ -5,7 +5,7 @@ services:
         ports:
             - 81:80
         volumes:
-            - /etc/letsencrypt/live/cairo-15.ya-praktikum.tech:/etc/nginx/conf.d
+            - /etc/letsencrypt:/etc/letsencrypt
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./dist:/opt/cairo
         depends_on:
