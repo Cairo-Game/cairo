@@ -12,6 +12,7 @@ import { Rating } from '../pages/Rating/Rating';
 import Forum from '../pages/Forum';
 import TopicDiscussion from '../pages/Forum/components/TopicDiscussion';
 import { GameLayout } from '../layouts/GameLayout/GameLayout';
+import { OauthRedirect } from '../pages/OauthRedirect/OauthRedirect';
 
 export const routes: IRoute[] = [
     {
@@ -25,6 +26,10 @@ export const routes: IRoute[] = [
             {
                 path: ProjectRoutes.signUp,
                 component: <SignUp />,
+            },
+            {
+                path: ProjectRoutes.redirectOauth,
+                component: <OauthRedirect />,
             },
         ],
     },
