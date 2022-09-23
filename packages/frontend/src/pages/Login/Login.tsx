@@ -9,14 +9,18 @@ import { Validation } from '../../utils/Validation';
 import { useNavigate } from 'react-router-dom';
 import { ProjectRoutes } from '../../constants/Routs';
 import { EStatusLoading } from '../../models/Api/common';
-import { CreateTheme } from '../../api/Themes';
+import { getOauth } from '../../api/Oauth';
+import { useState } from 'react';
 
 const initialValues: ILoginData = {
     password: '',
     login: '',
 };
 
+export const REDIRECT_URI = 'http://cairo-15.ya-praktikum.tech/yandex-oauth';
+
 export const Login = () => {
+    const [serviceId, setServiceId] = useState<string>('');
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -69,6 +73,18 @@ export const Login = () => {
         return errors;
     };
 
+    useEffect(() => {
+        getOauth({redirect: REDIRECT_URI}).then((data) => {
+            setServiceId(data.data.service_id);
+        });
+    }, []);
+
+    const redirectYandex = () => {
+        if (serviceId) {
+            window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${REDIRECT_URI}`;
+        }
+    };
+
     return (
         <Formik initialValues={initialValues} onSubmit={onSubmit} validateOnBlur={true} validate={validateFormValues}>
             <Form
@@ -93,6 +109,11 @@ export const Login = () => {
                             Нет аккаунта?
                         </Button>
                     </Col>
+                </Row>
+                <Row className="button__oauth">
+                    <Button type="link" onClick={() => redirectYandex()}>
+                        {'Войти с помощью "Яндекс"'}
+                    </Button>
                 </Row>
             </Form>
         </Formik>
