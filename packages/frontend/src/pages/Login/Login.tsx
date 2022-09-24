@@ -17,7 +17,7 @@ const initialValues: ILoginData = {
     login: '',
 };
 
-export const REDIRECT_URI = 'http://cairo-15.ya-praktikum.tech/yandex-oauth';
+export const REDIRECT_URI = 'https://cairo-15.ya-praktikum.tech/';
 
 export const Login = () => {
     const [serviceId, setServiceId] = useState<string>('');
